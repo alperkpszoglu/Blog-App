@@ -1,15 +1,19 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
+      <Nav />
       <router-view />
     </div>
   </div>
 </template>
 
-<script> 
+<script>
+import Nav from './components/Nav.vue';
 export default {
-  name: "app",
-  components: {},
+  name: 'app',
+  components: {
+    Nav,
+  },
   data() {
     return {};
   },
@@ -21,13 +25,13 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .app {
