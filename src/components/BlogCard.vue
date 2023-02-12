@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <div class="icons">
+    <div class="icons" v-show="isEditable">
       <div class="icon">
         <EditIcon class="edit" />
       </div>
@@ -21,6 +21,7 @@
 import ArrowIcon from '../assets/Icons/arrow-right-light.svg';
 import EditIcon from '../assets/Icons/edit-regular.svg';
 import DeleteIcon from '../assets/Icons/trash-regular.svg';
+import { blogStore } from '../stores/index';
 export default {
   name: 'blogCard',
   props: ['post'],
@@ -34,6 +35,11 @@ export default {
       return new URL(`../assets/blogCards/${name}.jpg`, import.meta.url).href;
     },
   },
+  computed: {
+    isEditable() {
+      return blogStore().isEditable;
+    }
+  }
 };
 </script>
 

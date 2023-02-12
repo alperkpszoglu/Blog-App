@@ -66,7 +66,7 @@ export default {
     fill: #000;
   }
 }
-
+  
 .arrow-light {
   path {
     fill: #fff;

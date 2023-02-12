@@ -21,15 +21,15 @@
         </div>
         <div class="col-2">
           <ul>
-            <router-link class="link" to="#">Home</router-link>
-            <router-link class="link" to="#">Blogs</router-link>
-            <router-link v-if="admin" class="link" to="#">Create Post</router-link>
-            <router-link v-if="!user" class="link" to="#">Login In / Register</router-link>
+            <router-link class="link" :to="{name: 'Home'}">ana sayfa</router-link>
+            <router-link class="link" :to="{name: 'Blogs'}">bloglar</router-link>
+            <router-link v-if="admin" class="link" to="#">blog ekle</router-link>
+            <router-link v-if="!user" class="link" to="#">giriş yap / kayıt ol</router-link>
           </ul>
         </div>
       </div>
       <div class="right">
-        <p>Copyright 2021 All Rights Reserved</p>
+        <p>© 2023 Alper Kapusızoğlu Blog</p>
       </div>
     </div>
   </footer>

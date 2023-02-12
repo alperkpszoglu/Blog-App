@@ -24,12 +24,14 @@
 import BlogPost from '../components/BlogPost.vue';
 import BlogCard from '../components/BlogCard.vue';
 import ArrowIcon from '../assets/Icons/arrow-right-light.svg';
+import { blogStore } from '../stores/index.js';
 export default {
   components: {
     BlogPost,
     BlogCard,
     ArrowIcon,
   },
+  setup() {},
   data() {
     return {
       heroSection: {
@@ -51,13 +53,12 @@ export default {
           blogCoverPhoto: 'designed-for-everyone',
         },
       ],
-      sampleBlogCards: [
-        { blogTitle: 'Blog Card 1', blogCoverPhoto: 'stock-1', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 2', blogCoverPhoto: 'stock-2', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 3', blogCoverPhoto: 'stock-3', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 4', blogCoverPhoto: 'stock-4', blogDate: 'May 1, 2021' },
-      ],
     };
+  },
+  computed: {
+    sampleBlogCards() {
+      return blogStore().sampleBlogCards;
+    },
   },
 };
 </script>
@@ -94,10 +95,11 @@ export default {
       }
     }
   }
-  h3 {
-    font-size: 1.75rem;
-    font-weight: 400;
-    margin-bottom: 2rem;
-  }
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
 }
 </style>

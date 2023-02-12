@@ -6,20 +6,20 @@
       </div>
       <div class="nav-links">
         <ul v-show="!mobile">
-          <router-link class="link" to="#">Home</router-link>
-          <router-link class="link" to="#">Blogs</router-link>
-          <router-link class="link" to="#">Create Post</router-link>
-          <router-link class="link" to="#">Login/Register</router-link>
+          <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
+          <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
+          <router-link class="link" to="#">blog ekle</router-link>
+          <router-link class="link" to="#">giriş yap/kayıt ol</router-link>
         </ul>
       </div>
     </nav>
     <IconMenu @click="toggleMobile" class="icon-menu" v-show="mobile" />
     <transition name="mobile-nav">
       <ul class="mobile-nav" v-show="mobileNav">
-        <router-link class="link" to="#">Home</router-link>
-        <router-link class="link" to="#">Blogs</router-link>
-        <router-link class="link" to="#">Create Post</router-link>
-        <router-link class="link" to="#">Login/Register</router-link>
+        <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
+        <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
+        <router-link class="link" to="#">blog ekle</router-link>
+        <router-link class="link" to="#">giriş yap/kayıt ol</router-link>
       </ul>
     </transition>
   </header>
