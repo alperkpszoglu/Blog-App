@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Nav />
+      <Nav v-if="!navbarDisabled" />
       <router-view />
-      <Footer />
+      <Footer v-if="!navbarDisabled" />
     </div>
   </div>
 </template>
@@ -18,12 +18,27 @@ export default {
     Footer,
   },
   data() {
-    return {};
+    return {
+      navbarDisabled: null,
+    };
   },
-  created() {},
-  mounted() {},
-  methods: {},
-  watch: {},
+  created() {
+    this.checkedNavbar();
+  },
+  methods: {
+    checkedNavbar() {
+      if (this.$route.name === 'Login' || this.$route.name === 'Register' || this.$route.name === 'ForgotPassword') {
+        this.navbarDisabled = true;
+        return;
+      }
+      this.navbarDisabled = false;
+    },
+  },
+  watch: {
+    $route() {
+      this.checkedNavbar(); // watch whenever route change
+    },
+  },
 };
 </script>
 
@@ -66,7 +81,7 @@ export default {
     fill: #000;
   }
 }
-  
+
 .arrow-light {
   path {
     fill: #fff;
