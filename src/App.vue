@@ -132,4 +132,11 @@ button,
     }
   }
 }
+
+// error
+.error{
+  color: red;
+  font-size: .75rem;
+  text-align: center;
+}
 </style>

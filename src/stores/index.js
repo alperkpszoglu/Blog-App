@@ -15,7 +15,6 @@ export const blogStore = defineStore('blogStore', {
   actions: {
     isEditableAction(payload) {
       this.isEditable = payload;
-      console.log(this.isEditable);
     },
   },
 });

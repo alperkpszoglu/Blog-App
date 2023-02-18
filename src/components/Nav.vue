@@ -9,7 +9,7 @@
           <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
           <router-link class="link" to="#">blog ekle</router-link>
-          <router-link class="link" to="#">giriş yap/kayıt ol</router-link>
+          <router-link class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
         </ul>
       </div>
     </nav>
@@ -19,7 +19,7 @@
         <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
         <router-link class="link" to="#">blog ekle</router-link>
-        <router-link class="link" to="#">giriş yap/kayıt ol</router-link>
+        <router-link class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
       </ul>
     </transition>
   </header>

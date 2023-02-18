@@ -15,9 +15,10 @@
           <input type="password" v-model="password" placeholder="Şifreniz" />
           <password class="icon" />
         </div>
+        <div v-show="error.isTrue" class="error">{{ error.msg }}</div>
       </div>
       <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Şifrenizi Mi Unuttunuz?</router-link>
-      <button>Giriş Yap</button>
+      <button @click.prevent="signin">Giriş Yap</button>
       <div class="angle"></div>
     </form>
     <div class="background"></div>
@@ -26,6 +27,9 @@
 <script>
 import email from '../assets/Icons/envelope-regular.svg';
 import password from '../assets/Icons/lock-alt-solid.svg';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
 export default {
   name: 'Login',
   components: {
@@ -34,9 +38,29 @@ export default {
   },
   data() {
     return {
-      password: null,
-      email: null,
+      password: '',
+      email: '',
+      error: {
+        isTrue: null,
+        msg: '',
+      },
     };
+  },
+  methods: {
+    signin() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.push({ name: 'Home' });
+          this.error.isTrue = false;
+          this.error.msg = '';
+        })
+        .catch((error) => {
+          this.error.isTrue = true;
+          this.error.msg = 'Email veya Şifre yanlış girdiniz';
+        });
+    },
   },
 };
 </script>
