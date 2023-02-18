@@ -134,9 +134,9 @@ button,
 }
 
 // error
-.error{
+.error {
   color: red;
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-align: center;
 }
 </style>
