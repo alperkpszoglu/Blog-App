@@ -17,17 +17,17 @@
         </div>
         <div class="input">
           <input type="email" v-model="email" placeholder="Email" />
-          <user class="icon" />
+          <email class="icon" />
         </div>
         <div class="input">
           <input type="email" v-model="username" placeholder="Kullanıcı Adı" />
-          <email class="icon" />
+          <user class="icon" />
         </div>
         <div class="input">
           <input type="password" v-model="password" placeholder="Şifre" />
           <password class="icon" />
         </div>
-        <div v-show="error.isTrue" class="error">{{error.msg }}</div>
+        <div v-show="error.isTrue" class="error">{{ error.msg }}</div>
       </div>
       <button @click.prevent="register">Kayıt Ol</button>
       <div class="angle"></div>
@@ -65,33 +65,36 @@ export default {
   },
   methods: {
     async register() {
-      if (
-        this.email !== '' &&
-        this.lastname !== '' &&
-        this.firstname !== '' &&
-        this.password !== '' &&
-        this.username !== ''
-      ) {
-        this.error.isTrue = false;
-        this.error.msg = '';
-        
-        const firebaseAuth = await firebase.auth();
-        const userCreate = await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password);
-        const result = await userCreate;
-        const db = dataBase.collection('users').doc(result.user.uid);
-        await db.set({
-          firstname: this.firstname,
-          lastname: this.lastname,
-          username: this.username,
-          email: this.email,
-        });
-        this.$router.push({ name: 'Home' });
-        return;
-      }
+      try {
+        if (
+          this.email !== '' &&
+          this.lastname !== '' &&
+          this.firstname !== '' &&
+          this.password !== '' &&
+          this.username !== ''
+        ) {
+          this.error.isTrue = false;
+          this.error.msg = '';
 
-      this.error.isTrue = true;
-      this.error.msg = 'Lütfen Tüm Alanları Doldurunuz!';
-      return;
+          const firebaseAuth = await firebase.auth();
+          const userCreate = await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password);
+          const result = await userCreate;
+          const db = dataBase.collection('users').doc(result.user.uid);
+          await db.set({
+            firstname: this.firstname,
+            lastname: this.lastname,
+            username: this.username,
+            email: this.email,
+          });
+          this.$router.push({ name: 'Home' });
+        } else {
+          this.error.isTrue = true;
+          this.error.msg = 'Lütfen Tüm Alanları Doldurunuz!';
+        }
+      } catch (err) {
+        this.error.isTrue = true;
+        this.error.msg = 'Zaten Böyle Bir Mail Adresi Mevcuttur';
+      }
     },
   },
 };
