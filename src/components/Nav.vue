@@ -11,6 +11,40 @@
           <router-link class="link" to="#">blog ekle</router-link>
           <router-link class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
         </ul>
+
+        <div class="profile" ref="profile" @click="profileToggle = !profileToggle">
+          <span>{{ blogStore.profileInitials }}</span>
+          <div v-show="profileToggle" class="profile-menu">
+            <div class="info">
+              <p class="initials">{{ blogStore.profileInitials }}</p>
+              <div class="right">
+                <p>{{ blogStore.profileFirstName }} {{ blogStore.profileLastName }}</p>
+                <p>{{ blogStore.profileUserName }}</p>
+                <p>{{ blogStore.profileEmail }}</p>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option">
+                <router-link to="#" class="option">
+                  <UserIcon class="icon" />
+                  <p>Profil</p>
+                </router-link>
+              </div>
+              <div class="option">
+                <router-link to="#" class="option">
+                  <AdminIcon class="icon" />
+                  <p>Admin</p>
+                </router-link>
+              </div>
+              <div class="option">
+                <router-link to="#" class="option">
+                  <SignOutIcon class="icon" />
+                  <p>Çıkış Yap</p>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
     <IconMenu @click="toggleMobile" class="icon-menu" v-show="mobile" />
@@ -27,17 +61,30 @@
 
 <script>
 import IconMenu from '../assets/Icons/bars-regular.svg';
+import UserIcon from '../assets/Icons/user-alt-light.svg';
+import AdminIcon from '../assets/Icons/user-crown-light.svg';
+import SignOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
+import { blogStore } from '../stores/index';
 export default {
   name: 'nav',
   components: {
     IconMenu,
+    UserIcon,
+    AdminIcon,
+    SignOutIcon,
   },
   data() {
     return {
       mobile: null, // mobile or not
       mobileNav: null,
       windowsWidth: null,
+      profileToggle: false,
     };
+  },
+  computed: {
+    blogStore() {
+      return blogStore();
+    },
   },
   created() {
     window.addEventListener('resize', this.checkScreen);
@@ -70,7 +117,7 @@ header {
 }
 
 .link {
-  font-weight: 500;
+  font-weight: 600;
   padding: 0 8px;
   transition: 0.3s color ease;
 
@@ -113,6 +160,85 @@ nav {
         margin-right: 0;
       }
     }
+
+    .profile {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      background-color: #303030;
+
+      .profile-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 250px;
+        background-color: #303030;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        .info {
+          display: flex;
+          align-items: center;
+          padding: 15px;
+          border-bottom: 1px solid #fff;
+
+          .initials {
+            position: initial;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            color: #303030;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+          }
+
+          .right {
+            flex: 1;
+            margin-left: 1rem;
+
+            p:nth-child(1) {
+              font-size: 14px;
+            }
+            p:nth-child(2),
+            p:nth-child(3) {
+              font-size: 12px;
+            }
+          }
+        }
+
+        .options {
+          padding: 15px;
+
+          .option {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+
+            .icon {
+              width: 18px;
+              height: auto;
+            }
+
+            p {
+              font-size: 14px;
+              margin-left: 12px;
+            }
+            &:last-child {
+              margin-bottom: 0px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -138,7 +264,7 @@ nav {
   left: 0;
 
   .link {
-    padding: 15px 0;
+    padding: 15px 0px;
     color: #fff;
   }
 }
