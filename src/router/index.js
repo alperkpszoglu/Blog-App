@@ -4,7 +4,8 @@ import BlogsView from '../views/BlogsView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ForgotPassword from '../views/ForgotPassword.vue';
-
+import AdminView from '../views/AdminView.vue';
+import ProfileView from '../views/ProfileView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -46,6 +47,22 @@ const router = createRouter({
       component: ForgotPassword,
       meta: {
         title: 'Şifreni Değiştir',
+      },
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: ProfileView,
+      meta: {
+        title: 'Profil',
+      },
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminView,
+      meta: {
+        title: 'Admin',
       },
     },
   ],
