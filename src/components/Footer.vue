@@ -23,8 +23,8 @@
           <ul>
             <router-link class="link" :to="{name: 'Home'}">ana sayfa</router-link>
             <router-link class="link" :to="{name: 'Blogs'}">bloglar</router-link>
-            <router-link v-if="admin" class="link" to="#">blog ekle</router-link>
-            <router-link v-if="!user" class="link" to="#">giriş yap / kayıt ol</router-link>
+            <router-link class="link" to="#">blog ekle</router-link>
+            <router-link v-if="!blogStore.user" class="link" to="#">giriş yap / kayıt ol</router-link>
           </ul>
         </div>
       </div>
@@ -40,6 +40,7 @@ import youTube from '../assets/Icons/youtube-brands.svg';
 import twitter from '../assets/Icons/twitter-brands.svg';
 import instagram from '../assets/Icons/instagram-brands.svg';
 import linkedin from '../assets/Icons/linkedin-brands.svg';
+import { blogStore } from '../stores/index';
 export default {
   name: 'footer',
   components: {
@@ -48,6 +49,11 @@ export default {
     instagram,
     linkedin,
   },
+  computed: {
+    blogStore(){
+      return blogStore();
+    }
+  }
 };
 </script>
 

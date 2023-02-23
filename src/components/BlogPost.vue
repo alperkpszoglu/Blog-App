@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-wrapper no-user">
+  <div class="blog-wrapper" :class="{'no-user': !user}">
     <div class="blog-content">
       <div>
         <h2 v-if="post.heroSection">{{ post.title }}</h2>
@@ -26,6 +26,7 @@
 
 <script>
 import ArrowIcon from '../assets/Icons/arrow-right-light.svg';
+import { blogStore } from '../stores/index';
 export default {
   name: 'blogPost',
   props: ['post'],
@@ -35,6 +36,11 @@ export default {
   methods: {
     getImageUrl: (name) => {
       return new URL(`../assets/blogPhotos/${name}.jpg`, import.meta.url).href;
+    },
+  },
+  computed: {
+    user() {
+      return blogStore().user;
     },
   },
 };

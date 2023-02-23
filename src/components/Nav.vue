@@ -9,10 +9,10 @@
           <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
           <router-link class="link" to="#">blog ekle</router-link>
-          <router-link class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
+          <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
         </ul>
 
-        <div class="profile" ref="profile" @click="profileToggle = !profileToggle">
+        <div v-show="blogStore.user" class="profile" ref="profile" @click="profileMenuToggle">
           <span>{{ blogStore.profileInitials }}</span>
           <div v-show="profileToggle" class="profile-menu">
             <div class="info">
@@ -36,11 +36,9 @@
                   <p>Admin</p>
                 </router-link>
               </div>
-              <div class="option">
-                <router-link to="#" class="option">
-                  <SignOutIcon class="icon" />
-                  <p>Çıkış Yap</p>
-                </router-link>
+              <div @click="signOut" class="option">
+                <SignOutIcon class="icon" />
+                <p>Çıkış Yap</p>
               </div>
             </div>
           </div>
@@ -53,7 +51,7 @@
         <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
         <router-link class="link" to="#">blog ekle</router-link>
-        <router-link class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
+        <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
       </ul>
     </transition>
   </header>
@@ -65,6 +63,8 @@ import UserIcon from '../assets/Icons/user-alt-light.svg';
 import AdminIcon from '../assets/Icons/user-crown-light.svg';
 import SignOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
 import { blogStore } from '../stores/index';
+import firebase from 'firebase/compat/app';
+import 'firebase/auth';
 export default {
   name: 'nav',
   components: {
@@ -103,6 +103,15 @@ export default {
     },
     toggleMobile() {
       this.mobileNav = !this.mobileNav;
+    },
+    profileMenuToggle(e) {
+      if (e.target === this.$refs.profile) {
+        this.profileToggle = !this.profileToggle;
+      }
+    },
+    signOut() {
+      firebase.auth().signOut();
+      window.location.reload();
     },
   },
 };
@@ -172,6 +181,10 @@ nav {
       border-radius: 50%;
       color: #fff;
       background-color: #303030;
+
+      span {
+        pointer-events: none;
+      }
 
       .profile-menu {
         position: absolute;

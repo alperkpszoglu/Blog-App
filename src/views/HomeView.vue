@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <BlogPost :post="heroSection" />
+    <BlogPost v-if="!user" :post="heroSection" />
     <BlogPost v-for="(post, index) in sampleBlogPost" :key="index" :post="post" />
     <div class="blog-card-wrapper">
       <div class="container">
@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
         <h2>never miss a post. Register for your free account today!</h2>
         <router-link class="router-button" to="#"> Register for FireBlogs <ArrowIcon class="arrow arrow-light" /> </router-link>
@@ -59,6 +59,9 @@ export default {
     sampleBlogCards() {
       return blogStore().sampleBlogCards;
     },
+    user(){
+      return blogStore().user;
+    }
   },
 };
 </script>
