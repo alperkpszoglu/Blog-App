@@ -38,5 +38,14 @@ export const blogStore = defineStore('blogStore', {
     updateUser(payload) {
       this.user = payload;
     },
+    async updateProfile() {
+      const dataBase = await db.collection('users').doc(this.profileId);
+      dataBase.update({
+        firstname: this.profileFirstName,
+        lastname: this.profileLastName,
+        username: this.profileUserName,
+      });
+      this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+    },
   },
 });

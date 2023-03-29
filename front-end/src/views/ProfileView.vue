@@ -1,8 +1,8 @@
 <template>
   <div class="profile">
-    <Modal v-if="modalActive" :modalMessage="modalMessage" @close-modal="closeModal" />
+    <Modal v-if="isModalActive" :modalMessage="modalMessage" @close-modal="closeModal" />
     <div class="container">
-      <h2>Account Settings</h2>
+      <h2>Kullanıcı Ayarları</h2>
       <div class="profile-info">
         <div class="initials">{{ blogStore.profileInitials }}</div>
         <div class="admin-badge">
@@ -10,22 +10,22 @@
           <span>admin</span>
         </div>
         <div class="input">
-          <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" v-model="firstName" />
+          <label for="firstName">Ad:</label>
+          <input type="text" id="firstName" v-model="blogStore.profileFirstName" />
         </div>
         <div class="input">
-          <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" v-model="lastName" />
+          <label for="lastName">Soyad:</label>
+          <input type="text" id="lastName" v-model="blogStore.profileLastName" />
         </div>
         <div class="input">
-          <label for="username">Username:</label>
-          <input type="text" id="username" v-model="username" />
+          <label for="username">Kullanıcı Adı:</label>
+          <input type="text" id="username" v-model="blogStore.profileUserName" />
         </div>
         <div class="input">
           <label for="email">Email:</label>
-          <input disabled type="text" id="email" v-model="email" />
+          <input disabled type="text" id="email" v-model="blogStore.profileEmail" />
         </div>
-        <button>Save Changes</button>
+        <button @click="updateProfile">Kaydet</button>
       </div>
     </div>
   </div>
@@ -33,10 +33,15 @@
 <script>
 import { blogStore } from '../stores/index';
 import AdminIcon from '../assets/Icons/user-crown-light.svg';
+import Modal from '../components/Modal.vue';
 export default {
+  components: {
+    AdminIcon,
+    Modal,
+  },
   data() {
     return {
-      modalActive: true,
+      isModalActive: null,
       modalMessage: 'Değişiklikler Kaydedildi!',
     };
   },
@@ -47,7 +52,11 @@ export default {
   },
   methods: {
     closeModal() {
-      this.modalActive = !this.modalActive;
+      this.isModalActive = !this.isModalActive;
+    },
+    updateProfile() {
+      this.isModalActive = true;
+      blogStore().updateProfile();
     },
   },
 };
