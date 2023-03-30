@@ -1,4 +1,5 @@
-﻿using Blog_App.Models;
+﻿using Blog_App.Data;
+using Blog_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,17 +13,18 @@ namespace Blog_App.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly BlogDbContext _context;
 
-        public static User user = new User();
-
-        public AuthController(IConfiguration configuration)
+        public AuthController(BlogDbContext context, IConfiguration configuration)
         {
+            _context = context;
             _configuration = configuration;
         }
 
         [HttpPost("register")]
         public ActionResult<User> Register(UserDto request)
         {
+            var user = new User();
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
@@ -30,24 +32,31 @@ namespace Blog_App.Controllers
             user.Email = request.Email;
             user.PasswordHash = passwordHash;
 
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return Ok(user);
         }
 
         [HttpPost("login")]
         public ActionResult<User> Login(UserLoginDto request)
         {
-            if (user.Email != request.Email) //TO DO: check according to DB
+            var user = _context.Users.FirstOrDefault(x => x.Email == request.Email);
+            if (user != null)
+            {
+
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                {
+                    return BadRequest("Sifreniz yanlis");
+                }
+
+                string jwtToken = CreateToken(user);
+                return Ok(jwtToken);
+            }
+            else
             {
                 return BadRequest("Kullanici bulunamadi");
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            {
-                return BadRequest("Sifreniz yanlis");
-            }
-
-            string jwtToken = CreateToken(user);
-            return Ok(jwtToken);
         }
 
         private string CreateToken(User user)
