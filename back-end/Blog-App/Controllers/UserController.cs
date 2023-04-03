@@ -1,4 +1,5 @@
 ﻿using Blog_App.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog_App.Controllers
@@ -15,7 +16,7 @@ namespace Blog_App.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public IActionResult GetUsers()
         {
            return Ok(context.Users.ToList());

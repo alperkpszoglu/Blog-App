@@ -1,5 +1,7 @@
 ﻿using Blog_App.Data;
 using Blog_App.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -59,12 +61,20 @@ namespace Blog_App.Controllers
 
         }
 
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            // Delete the authentication cookie
+            HttpContext.Request.Headers.Remove("Authorization");
+            return Ok();
+        }
+
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>()
             {
-
                 new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, "Admin")
             };
 
 
@@ -73,7 +83,7 @@ namespace Blog_App.Controllers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(5),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: cred
                 );
 
