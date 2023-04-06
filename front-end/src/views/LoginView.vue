@@ -27,6 +27,7 @@
 <script>
 import email from '../assets/Icons/envelope-regular.svg';
 import password from '../assets/Icons/lock-alt-solid.svg';
+import { blogStore } from '../stores/index';
 import axios from 'axios';
 export default {
   name: 'Login',
@@ -54,12 +55,14 @@ export default {
       //     this.error.isTrue = false;
       //     this.error.msg = '';
       //   }
-
       // )
+
       axios
         .post('https://localhost:7139/api/Auth/login', { email: this.email, password: this.password })
         .then((res) => {
           localStorage.setItem('token', res.data);
+        }).then(()=>{
+          blogStore().getCurrenctUser();
           this.$router.push({ name: 'Home' });
           this.error.isTrue = false;
           this.error.msg = '';

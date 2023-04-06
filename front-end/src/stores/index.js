@@ -18,28 +18,22 @@ export const blogStore = defineStore('blogStore', {
       profileUserName: null,
       profileId: null,
       profileInitials: null,
+      headers: null,
     };
   },
   actions: {
     isEditableAction(payload) {
       this.isEditable = payload;
     },
-    async getCurrenctUser() {
-      // const user = await db.collection('users').doc(firebase.auth().currentUser.uid);
-      // const dbResults = await user.get();
-      // this.profileId = dbResults.id;
-      // this.profileEmail = dbResults.data().email;
-      // this.profileUserName = dbResults.data().username;
-      // this.profileFirstName = await dbResults.data().firstname;
-      // this.profileLastName = await dbResults.data().lastname;
-      // this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
-
+    getToken() {
       const token = localStorage.getItem('token');
 
-      const headers = {
+      return {
         Authorization: `Bearer ${token}`,
       };
-
+    },
+    getCurrenctUser() {
+      const headers = this.getToken();
       axios
         .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
@@ -55,17 +49,18 @@ export const blogStore = defineStore('blogStore', {
           console.log('giris yapilmali');
         });
     },
-    // updateUser(payload) {
-    //   this.user = payload;
-    // },
-    // async updateProfile() {
-    //   const dataBase = await db.collection('users').doc(this.profileId);
-    //   dataBase.update({
-    //     firstname: this.profileFirstName,
-    //     lastname: this.profileLastName,
-    //     username: this.profileUserName,
-    //   });
-    //   this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
-    // },
+    updateProfile() {
+      const headers = this.getToken();
+      axios
+        .post(
+          'https://localhost:7139/api/User/UpdateUser',
+          { FirstName: this.profileFirstName, LastName: this.profileLastName, UserName: this.profileUserName,email: this.profileUserName },
+          { headers: headers }
+        )
+        .then((res) => {
+          console.log(res);
+          this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+        });
+    },
   },
 });

@@ -74,18 +74,13 @@ export default {
           this.error.isTrue = false;
           this.error.msg = '';
 
-          axios
-            .post('https://localhost:7139/api/Auth/register', {
-              firstName: this.firstname,
-              lastName: this.lastname,
-              userName: this.username,
-              email: this.email,
-              password: this.password,
-            })
-            .then(() => {
-              console.log('kayit oldundu');
-            });
-
+          await axios.post('https://localhost:7139/api/Auth/register', {
+            firstName: this.firstname,
+            lastName: this.lastname,
+            userName: this.username,
+            email: this.email,
+            passwordHash: this.password,
+          });
           this.$router.push({ name: 'Login' });
         } else {
           this.error.isTrue = true;

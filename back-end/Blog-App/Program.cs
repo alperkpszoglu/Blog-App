@@ -20,7 +20,7 @@ namespace Blog_App
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
-;
+
 
             builder.Services.AddSwaggerGen(options => // for input the bearer token in swagger UI
             {
@@ -46,7 +46,7 @@ namespace Blog_App
             });
 
 
-            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer("Data Source=ALPER\\SQLEXPRESS;Initial Catalog=BlogDb;Integrated Security=True;Encrypt=False;"));
+            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer("Data Source=ALPER\\SQLEXPRESS;Initial Catalog=BlogDb;Integrated Security=True;Encrypt=False;Connection Timeout=120;"));
 
             var app = builder.Build();
 

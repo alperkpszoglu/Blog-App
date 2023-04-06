@@ -1,4 +1,7 @@
-﻿namespace Blog_App.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace Blog_App.Models
 {
     public class User
     {
@@ -6,7 +9,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; } // unique
         public string PasswordHash{ get; set; }
     }
 }
