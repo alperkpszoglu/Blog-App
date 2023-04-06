@@ -24,10 +24,10 @@ namespace Blog_App.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult<User> Register(UserDto request)
+        public ActionResult<User> Register(User request)
         {
             var user = new User();
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash);
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.UserName = request.UserName;
@@ -36,7 +36,7 @@ namespace Blog_App.Controllers
 
             _context.Users.Add(user);
             _context.SaveChanges();
-            return Ok(user);
+            return Ok();
         }
 
         [HttpPost("login")]
@@ -61,19 +61,19 @@ namespace Blog_App.Controllers
 
         }
 
-        [HttpPost("logout")]
-        public IActionResult Logout()
-        {
-            // Delete the authentication cookie
-            HttpContext.Request.Headers.Remove("Authorization");
-            return Ok();
-        }
+        //[HttpPost("logout")]
+        //public IActionResult Logout()
+        //{
+        //    // Delete the authentication cookie
+        //    HttpContext.Request.Headers.Remove("Authorization");
+        //    return Ok();
+        //}
 
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, "Admin")
             };
 

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import firebase from 'firebase/compat/app';
-import db from '../firebase/firebase';
+import axios from 'axios';
 
 export const blogStore = defineStore('blogStore', {
   state: () => {
@@ -26,26 +25,47 @@ export const blogStore = defineStore('blogStore', {
       this.isEditable = payload;
     },
     async getCurrenctUser() {
-      const user = await db.collection('users').doc(firebase.auth().currentUser.uid);
-      const dbResults = await user.get();
-      this.profileId = dbResults.id;
-      this.profileEmail = dbResults.data().email;
-      this.profileUserName = dbResults.data().username;
-      this.profileFirstName = await dbResults.data().firstname;
-      this.profileLastName = await dbResults.data().lastname;
-      this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+      // const user = await db.collection('users').doc(firebase.auth().currentUser.uid);
+      // const dbResults = await user.get();
+      // this.profileId = dbResults.id;
+      // this.profileEmail = dbResults.data().email;
+      // this.profileUserName = dbResults.data().username;
+      // this.profileFirstName = await dbResults.data().firstname;
+      // this.profileLastName = await dbResults.data().lastname;
+      // this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+
+      const token = localStorage.getItem('token');
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+        .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
+        .then((res) => {
+          console.log(res);
+          this.profileEmail = res.data.email;
+          this.profileUserName = res.data.userName;
+          this.profileFirstName = res.data.firstName;
+          this.profileLastName = res.data.lastName;
+          this.user = res.data;
+          this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+        })
+        .catch(() => {
+          console.log('giris yapilmali');
+        });
     },
-    updateUser(payload) {
-      this.user = payload;
-    },
-    async updateProfile() {
-      const dataBase = await db.collection('users').doc(this.profileId);
-      dataBase.update({
-        firstname: this.profileFirstName,
-        lastname: this.profileLastName,
-        username: this.profileUserName,
-      });
-      this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
-    },
+    // updateUser(payload) {
+    //   this.user = payload;
+    // },
+    // async updateProfile() {
+    //   const dataBase = await db.collection('users').doc(this.profileId);
+    //   dataBase.update({
+    //     firstname: this.profileFirstName,
+    //     lastname: this.profileLastName,
+    //     username: this.profileUserName,
+    //   });
+    //   this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
+    // },
   },
 });

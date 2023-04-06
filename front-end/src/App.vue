@@ -12,8 +12,6 @@
 import Nav from './components/Nav.vue';
 import Footer from './components/Footer.vue';
 import { blogStore } from './stores/index';
-import firebase from 'firebase/compat/app';
-import 'firebase/auth';
 
 export default {
   name: 'app',
@@ -27,16 +25,8 @@ export default {
     };
   },
   created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      blogStore().updateUser(user);
-      if (user) {
-        blogStore()
-          .getCurrenctUser()
-          .then(() => {
-            console.log(blogStore().profileEmail);
-          });
-      }
-    });
+    blogStore().getCurrenctUser();
+
     this.checkedNavbar();
   },
   methods: {

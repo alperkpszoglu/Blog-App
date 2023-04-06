@@ -63,8 +63,7 @@ import UserIcon from '../assets/Icons/user-alt-light.svg';
 import AdminIcon from '../assets/Icons/user-crown-light.svg';
 import SignOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
 import { blogStore } from '../stores/index';
-import firebase from 'firebase/compat/app';
-import 'firebase/auth';
+
 export default {
   name: 'nav',
   components: {

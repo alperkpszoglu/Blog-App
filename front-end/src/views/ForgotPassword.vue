@@ -27,8 +27,6 @@
 import email from '../assets/Icons/envelope-regular.svg';
 import Modal from '../components/Modal.vue';
 import Loading from '../components/Loading.vue';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
 
 export default {
   name: 'ForgotPassword',

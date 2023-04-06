@@ -27,9 +27,7 @@
 <script>
 import email from '../assets/Icons/envelope-regular.svg';
 import password from '../assets/Icons/lock-alt-solid.svg';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
+import axios from 'axios';
 export default {
   name: 'Login',
   components: {
@@ -48,10 +46,20 @@ export default {
   },
   methods: {
     signin() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+      // firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(this.email, this.password)
+      //   .then(() => {
+      //     this.$router.push({ name: 'Home' });
+      //     this.error.isTrue = false;
+      //     this.error.msg = '';
+      //   }
+
+      // )
+      axios
+        .post('https://localhost:7139/api/Auth/login', { email: this.email, password: this.password })
+        .then((res) => {
+          localStorage.setItem('token', res.data);
           this.$router.push({ name: 'Home' });
           this.error.isTrue = false;
           this.error.msg = '';

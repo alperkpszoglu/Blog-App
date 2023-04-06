@@ -19,6 +19,9 @@ namespace Blog_App
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+;
+
             builder.Services.AddSwaggerGen(options => // for input the bearer token in swagger UI
             {
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -58,8 +61,13 @@ namespace Blog_App
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            app.UseCors(builder => builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+             );
 
             app.Run();
         }

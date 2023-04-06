@@ -39,9 +39,7 @@
 import email from '../assets/Icons/envelope-regular.svg';
 import password from '../assets/Icons/lock-alt-solid.svg';
 import user from '../assets/Icons/user-alt-light.svg';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import dataBase from '../firebase/firebase';
+import axios from 'axios';
 
 export default {
   name: 'Register',
@@ -76,17 +74,19 @@ export default {
           this.error.isTrue = false;
           this.error.msg = '';
 
-          const firebaseAuth = await firebase.auth();
-          const userCreate = await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password);
-          const result = await userCreate;
-          const db = dataBase.collection('users').doc(result.user.uid);
-          await db.set({
-            firstname: this.firstname,
-            lastname: this.lastname,
-            username: this.username,
-            email: this.email,
-          });
-          this.$router.push({ name: 'Home' });
+          axios
+            .post('https://localhost:7139/api/Auth/register', {
+              firstName: this.firstname,
+              lastName: this.lastname,
+              userName: this.username,
+              email: this.email,
+              password: this.password,
+            })
+            .then(() => {
+              console.log('kayit oldundu');
+            });
+
+          this.$router.push({ name: 'Login' });
         } else {
           this.error.isTrue = true;
           this.error.msg = 'Lütfen Tüm Alanları Doldurunuz!';
