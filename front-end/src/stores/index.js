@@ -37,7 +37,6 @@ export const blogStore = defineStore('blogStore', {
       axios
         .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
-          console.log(res);
           this.profileEmail = res.data.email;
           this.profileUserName = res.data.userName;
           this.profileFirstName = res.data.firstName;
@@ -54,11 +53,10 @@ export const blogStore = defineStore('blogStore', {
       axios
         .post(
           'https://localhost:7139/api/User/UpdateUser',
-          { FirstName: this.profileFirstName, LastName: this.profileLastName, UserName: this.profileUserName,email: this.profileUserName },
+          { FirstName: this.profileFirstName, LastName: this.profileLastName, UserName: this.profileUserName,email: this.profileEmail },
           { headers: headers }
         )
         .then((res) => {
-          console.log(res);
           this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
         });
     },
