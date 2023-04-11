@@ -16,7 +16,8 @@ export const blogStore = defineStore('blogStore', {
       profileFirstName: null,
       profileLastName: null,
       profileUserName: null,
-      profileId: null,
+      profileIsAdmin: null,
+      profileCreatedDate: null,
       profileInitials: null,
       headers: null,
     };
@@ -37,10 +38,13 @@ export const blogStore = defineStore('blogStore', {
       axios
         .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
+          console.log(res);
           this.profileEmail = res.data.email;
           this.profileUserName = res.data.userName;
           this.profileFirstName = res.data.firstName;
           this.profileLastName = res.data.lastName;
+          this.profileIsAdmin = res.data.isAdmin;
+          this.profileCreatedDate = res.data.createdDate;
           this.user = res.data;
           this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
         })

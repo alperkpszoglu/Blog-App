@@ -1,4 +1,7 @@
 <template>
+  <div></div>
+</template>
+<!-- <template>
   <div class="reset-password">
     <Modal v-if="isModalActive" :modalMessage="modalMessage" @close-modal="closeModal" />
     <Loading v-if="isLoad" />
@@ -45,21 +48,7 @@ export default {
   },
   methods: {
     resetPassword() {
-      this.isLoad = true;
-      firebase
-        .auth()
-        .sendPasswordResetEmail(this.email)
-        .then(() => {
-          this.modalMessage = 'Mail Adresinize Şifre Yenileme linki Gönderildi';
-          this.isModalActive = true;
-          this.isLoad = false;
-        })
-        .catch(() => {
-          this.modalMessage = 'Böyle Bir Mail Adresi Mevcut Değildir';
-          this.isModalActive = true;
-          this.isLoad = false;
-        });
-        this.email = '';
+      
     },
     closeModal() {
       this.isModalActive = false;
@@ -84,4 +73,4 @@ export default {
     }
   }
 }
-</style>
+</style> -->

@@ -23,7 +23,7 @@ namespace Blog_App.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("GetUsers"), Authorize(Roles = "Admin")]
+        [HttpGet("GetUsers"), Authorize(Roles = "Admin,User")]
         public IActionResult GetUsers()
         {
             return Ok(context.Users.ToList());
@@ -47,7 +47,9 @@ namespace Blog_App.Controllers
                 return NotFound();
             }
 
-            currentUser = new UserDto { FirstName = existingUser.FirstName, LastName = existingUser.LastName, UserName = existingUser.UserName };
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.UserName = user.UserName;
 
             context.SaveChanges();
             return Ok();

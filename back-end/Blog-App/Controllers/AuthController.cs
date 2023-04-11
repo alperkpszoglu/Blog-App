@@ -40,7 +40,7 @@ namespace Blog_App.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<User> Login(UserLoginDto request)
+        public ActionResult<User> Login(UserLoginRequest request)
         {
             var user = _context.Users.FirstOrDefault(x => x.Email == request.Email);
             if (user != null)
@@ -74,7 +74,7 @@ namespace Blog_App.Controllers
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
             };
 
 

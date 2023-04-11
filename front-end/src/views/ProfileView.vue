@@ -7,7 +7,7 @@
         <div class="initials">{{ blogStore.profileInitials }}</div>
         <div class="admin-badge">
           <AdminIcon class="icon" />
-          <span>admin</span>
+          <span>{{ blogStore.profileIsAdmin ? 'Admin' : 'Kullanıcı' }}</span>
         </div>
         <div class="input">
           <label for="firstName">Ad:</label>
@@ -56,6 +56,7 @@ export default {
     },
     updateProfile() {
       this.isModalActive = true;
+      window.scrollTo(0, 0);
       blogStore().updateProfile();
     },
   },

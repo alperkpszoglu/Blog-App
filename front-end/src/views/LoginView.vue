@@ -17,7 +17,7 @@
         </div>
         <div v-show="error.isTrue" class="error">{{ error.msg }}</div>
       </div>
-      <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Şifrenizi Mi Unuttunuz?</router-link>
+      <router-link class="forgot-password" to="#">Şifrenizi Mi Unuttunuz?</router-link>
       <button @click.prevent="signin">Giriş Yap</button>
       <div class="angle"></div>
     </form>
