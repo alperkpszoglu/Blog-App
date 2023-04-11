@@ -109,7 +109,7 @@ export default {
       }
     },
     signOut() {
-      firebase.auth().signOut();
+      localStorage.removeItem('token');
       window.location.reload();
     },
   },
