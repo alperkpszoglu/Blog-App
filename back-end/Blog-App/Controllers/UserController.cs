@@ -55,5 +55,14 @@ namespace Blog_App.Controllers
             return Ok();
         }
 
+        [HttpGet("SetAdminRole"), Authorize(Roles = "Admin")]
+        public IActionResult SetAdminRole(string email)
+        {
+            var user = context.Users.FirstOrDefault(u => u.Email == email);
+            user.IsAdmin = true;
+            context.SaveChanges();
+            return Ok();
+        }
+
     }
 }
