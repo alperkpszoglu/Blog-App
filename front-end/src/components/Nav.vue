@@ -8,7 +8,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
-          <router-link v-if="blogStore.profileIsAdmin" class="link" to="#">blog ekle</router-link>
+          <router-link v-if="blogStore.profileIsAdmin" class="link" :to="{ name: 'CreatePost' }">blog ekle</router-link>
           <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
         </ul>
 
@@ -25,13 +25,13 @@
             </div>
             <div class="options">
               <div class="option">
-                <router-link :to="{name: 'Profile'}" class="option">
+                <router-link :to="{ name: 'Profile' }" class="option">
                   <UserIcon class="icon" />
                   <p>Profil</p>
                 </router-link>
               </div>
-              <div class="option">
-                <router-link :to="{name: 'Admin'}" class="option">
+              <div v-if="blogStore.profileIsAdmin" class="option">
+                <router-link :to="{ name: 'Admin' }" class="option">
                   <AdminIcon class="icon" />
                   <p>Admin</p>
                 </router-link>
@@ -50,7 +50,7 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
-        <router-link class="link" to="#">blog ekle</router-link>
+        <router-link v-if="blogStore.profileIsAdmin" class="link" :to="{ name: 'CreatePost' }">blog ekle</router-link>
         <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
       </ul>
     </transition>
@@ -192,7 +192,7 @@ nav {
         width: 250px;
         background-color: #303030;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        
+
         .info {
           display: flex;
           align-items: center;

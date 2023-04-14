@@ -31,7 +31,6 @@ export default {
     BlogCard,
     ArrowIcon,
   },
-  setup() {},
   data() {
     return {
       heroSection: {

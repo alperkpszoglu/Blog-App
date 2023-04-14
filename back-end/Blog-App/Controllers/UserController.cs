@@ -59,6 +59,10 @@ namespace Blog_App.Controllers
         public IActionResult SetAdminRole(string email)
         {
             var user = context.Users.FirstOrDefault(u => u.Email == email);
+            if(user == null)
+            {
+                return NotFound();
+            }
             user.IsAdmin = true;
             context.SaveChanges();
             return Ok();

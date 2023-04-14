@@ -36,7 +36,7 @@ namespace Blog_App.Controllers
 
             _context.Users.Add(user);
             _context.SaveChanges();
-            return Ok();
+            return Ok(); 
         }
 
         [HttpPost("login")]

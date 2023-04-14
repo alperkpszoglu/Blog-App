@@ -21,10 +21,12 @@
         </div>
         <div class="col-2">
           <ul>
-            <router-link class="link" :to="{name: 'Home'}">ana sayfa</router-link>
-            <router-link class="link" :to="{name: 'Blogs'}">bloglar</router-link>
-            <router-link class="link" to="#">blog ekle</router-link>
-            <router-link v-if="!blogStore.user" class="link" to="#">giriş yap / kayıt ol</router-link>
+            <router-link class="link" :to="{ name: 'Home' }">ana sayfa</router-link>
+            <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
+            <router-link v-if="blogStore.profileIsAdmin" class="link" :to="{ name: 'CreatePost' }"
+              >blog ekle</router-link
+            >
+            <router-link v-if="!blogStore.user" class="link" :to="{name: 'Login'}">giriş yap / kayıt ol</router-link>
           </ul>
         </div>
       </div>
@@ -50,10 +52,10 @@ export default {
     linkedin,
   },
   computed: {
-    blogStore(){
+    blogStore() {
       return blogStore();
-    }
-  }
+    },
+  },
 };
 </script>
 

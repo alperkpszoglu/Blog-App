@@ -20,6 +20,13 @@ export const blogStore = defineStore('blogStore', {
       profileCreatedDate: null,
       profileInitials: null,
       headers: null,
+
+      // create post
+      blogHTML: 'Blog basligini buraya yaz',
+      blogTitle: '',
+      blogPhotoName: '',
+      blogPhotoFileURL: '',
+      blogPhotoPreview: '',
     };
   },
   actions: {
@@ -38,7 +45,6 @@ export const blogStore = defineStore('blogStore', {
       axios
         .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
-          console.log(res);
           this.profileEmail = res.data.email;
           this.profileUserName = res.data.userName;
           this.profileFirstName = res.data.firstName;
@@ -57,7 +63,12 @@ export const blogStore = defineStore('blogStore', {
       axios
         .post(
           'https://localhost:7139/api/User/UpdateUser',
-          { FirstName: this.profileFirstName, LastName: this.profileLastName, UserName: this.profileUserName,email: this.profileEmail },
+          {
+            FirstName: this.profileFirstName,
+            LastName: this.profileLastName,
+            UserName: this.profileUserName,
+            email: this.profileEmail,
+          },
           { headers: headers }
         )
         .then((res) => {

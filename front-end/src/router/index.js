@@ -6,6 +6,7 @@ import RegisterView from '../views/RegisterView.vue';
 import ForgotPassword from '../views/ForgotPassword.vue';
 import AdminView from '../views/AdminView.vue';
 import ProfileView from '../views/ProfileView.vue';
+import CreatePostView from '../views/CreatePostView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,6 +48,14 @@ const router = createRouter({
       component: ForgotPassword,
       meta: {
         title: 'Şifreni Değiştir',
+      },
+    },
+    {
+      path: '/create-post',
+      name: 'CreatePost',
+      component: CreatePostView,
+      meta: {
+        title: 'Blog Oluştur',
       },
     },
     {

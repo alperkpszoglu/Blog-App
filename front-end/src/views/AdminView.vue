@@ -19,10 +19,11 @@
   </div>
 </template>
 
-<script>aaaaaaaaa
+<script>
 import axios from 'axios';
 import { blogStore } from '../stores/index';
-import toastr from 'toastr';
+import Swal from 'sweetalert2';
+
 export default {
   data() {
     return {
@@ -32,11 +33,22 @@ export default {
   methods: {
     addAdmin() {
       const headers = blogStore().getToken();
-      axios.get(`https://localhost:7139/api/User/SetAdminRole?email=${this.adminEmail}`, {headers: headers}).then(() => {
-        toastr.success('Kullanıcıyı Admin Olarak Başarıyla Eklediniz!', 'Başarılı');
-      }).catch(()=>{
-        toastr.error('Admin Ekleme Sırasında Hata Alındı!', 'Hata');
-      });
+      axios
+        .get(`https://localhost:7139/api/User/SetAdminRole?email=${this.adminEmail}`, { headers: headers })
+        .then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Başarılı!',
+            text: 'Kullanıcıyı Admin Olarak Başarıyla Eklediniz!',
+          });
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Hata',
+            text: 'Admin Ekleme Sırasında Hata Alındı!',
+          });
+        });
     },
   },
 };
