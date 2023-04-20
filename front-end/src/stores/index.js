@@ -75,5 +75,12 @@ export const blogStore = defineStore('blogStore', {
           this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
         });
     },
+    newBlogPost(payload) {
+      this.blogHTML = payload;
+      console.log(payload)
+    },
+    updateBlogTitle(payload) {
+      this.blogTitle = payload;
+    },
   },
 });

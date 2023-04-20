@@ -143,4 +143,15 @@ button,
   font-size: 0.75rem;
   text-align: center;
 }
+
+.button-light {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+.button-inactive {
+  pointer-events: none !important;
+  cursor: none !important;
+  background-color: rgba(128, 128, 128, 0.5) !important;
+}
 </style>
