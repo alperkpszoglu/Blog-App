@@ -23,10 +23,10 @@ export const blogStore = defineStore('blogStore', {
 
       // create post
       blogHTML: 'Blog basligini buraya yaz',
-      blogTitle: '',
-      blogPhotoName: '',
-      blogPhotoFileURL: '',
-      blogPhotoPreview: '',
+      blogTitle: null,
+      blogPhotoName: null,
+      blogPhotoFileURL: null,
+      blogPhotoPreview: null,
     };
   },
   actions: {
@@ -77,10 +77,9 @@ export const blogStore = defineStore('blogStore', {
     },
     newBlogPost(payload) {
       this.blogHTML = payload;
-      console.log(payload)
     },
     updateBlogTitle(payload) {
       this.blogTitle = payload;
-    },
+    }
   },
 });

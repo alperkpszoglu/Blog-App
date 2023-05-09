@@ -10,6 +10,7 @@ namespace Blog_App.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Blog> Blogs { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

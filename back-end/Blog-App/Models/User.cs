@@ -15,5 +15,7 @@ namespace Blog_App.Models
         public bool IsAdmin { get; set; } = false;
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public List<Blog>? Blogs { get; set; }
     }
 }

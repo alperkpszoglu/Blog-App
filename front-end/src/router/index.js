@@ -7,6 +7,8 @@ import ForgotPassword from '../views/ForgotPassword.vue';
 import AdminView from '../views/AdminView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import CreatePostView from '../views/CreatePostView.vue';
+import BlogPreview from '../views/BlogPreview.vue';
+import ViewBlogView from '../views/ViewBlogView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -72,6 +74,22 @@ const router = createRouter({
       component: AdminView,
       meta: {
         title: 'Admin',
+      },
+    },
+    {
+      path: '/post-preview',
+      name: 'BlogPreview',
+      component: BlogPreview,
+      meta: {
+        title: 'Blog Önizleme',
+      },
+    },
+    {
+      path: '/view-blog',
+      name: 'ViewBlog',
+      component: ViewBlogView,
+      meta: {
+        title: 'Blog Görüntüle',
       },
     },
   ],

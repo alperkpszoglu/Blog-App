@@ -1,5 +1,6 @@
 <template>
   <div class="create-post">
+    <BlogCoverPreview v-show="blogStore.blogPhotoPreview" />
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
         <p><span>Error:</span>{{ errorMsg }}</p>
@@ -9,16 +10,18 @@
         <div class="upload-file">
           <label for="blog-photo">Kapak Fotoğrafı Yükle</label>
           <input type="file" ref="blogPhoto" @change="fileUpload" id="blog-photo" accept=".png, .jpg, .jpeg" />
-          <button class="preview" :class="{ 'button-inactive': !blogStore.blogPhotoFileURL }">Fotoğraf Önizle</button>
+          <button class="preview" @click="openPreview" :class="{ 'button-inactive': !blogStore.blogPhotoFileURL }">
+            Fotoğraf Önizle
+          </button>
           <span style="font-weight: 700">Seçilen Dosya: {{ blogStore.blogPhotoName }}</span>
         </div>
       </div>
       <div class="editor">
-        <QuillEditor theme="snow" v-model:content="blogHTML" contentType="html" />
+        <QuillEditor theme="snow" v-model:content="blogHTML" contentType="html" toolbar="full" />
       </div>
       <div class="blog-actions">
-        <button>Blogu Yayınla</button>
-        <router-link class="router-button" to="#">Önizlemeyi Gönder</router-link>
+        <button @click="uploadBlog">Blogu Yayınla</button>
+        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Önizlemeyi Gönder</router-link>
       </div>
     </div>
   </div>
@@ -27,12 +30,17 @@
 import { blogStore } from '../stores/index';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import BlogCoverPreview from '../components/BlogCoverPreview.vue';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import ImageUploader from 'quill-image-uploader';
+import axios from 'axios';
 
 export default {
+  name: 'CreatePost',
   components: {
     QuillEditor,
+    BlogCoverPreview,
   },
-  name: 'CreatePost',
   data() {
     return {
       error: null,
@@ -69,11 +77,34 @@ export default {
   },
   methods: {
     fileUpload() {
-      console.log(this);
       this.file = this.$refs.blogPhoto.files[0];
       const fileName = this.file.name;
       blogStore().blogPhotoName = fileName;
       blogStore().blogPhotoFileURL = URL.createObjectURL(this.file);
+    },
+    openPreview() {
+      blogStore().blogPhotoPreview = !blogStore().blogPhotoPreview;
+    },
+    uploadBlog() {
+      const headers = blogStore().getToken();
+
+      headers['Content-Type'] = 'multipart/form-data';
+      if (blogStore().blogHTML.length && blogStore().blogTitle.length) {
+        const formData = new FormData();
+        formData.append('file', this.$refs.blogPhoto.files[0]);
+        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers }).then((res) => {
+          console.log(res);
+        });
+
+
+        
+        return;
+      }
+      this.error = true;
+      this.errorMsg = 'Blog basligi ve blog dolu olduguna emin olunuz!';
+      setTimeout(() => {
+        this.error = false;
+      }, 5000);
     },
   },
 };
