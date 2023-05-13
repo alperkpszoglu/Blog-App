@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <BlogPost v-if="!user" :post="heroSection" />
-    <BlogPost v-for="(post, index) in sampleBlogPost" :key="index" :post="post" />
+    <BlogPost v-for="(post, index) in sampleBlogPosts" :key="index" :post="post" />
     <div class="blog-card-wrapper">
       <div class="container">
         <h3>Daha Fazla Blog Görüntüle</h3>
         <div class="blog-cards">
-          <BlogCard :key="index" v-for="(post, index) in sampleBlogCards" :post="post" />
+          <BlogCard :key="index" v-for="(post, index) in blogCardFeeds" :post="post" />
         </div>
       </div>
     </div>
@@ -38,28 +38,19 @@ export default {
         blogPost:
           'Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!',
         heroSection: true,
-        photo: 'coding',
+        photo: 'coding.jpg',
       },
-      sampleBlogPost: [
-        {
-          title: 'this is a title',
-          blogHTML: 'this is a blog post title!',
-          blogCoverPhoto: 'beautiful-stories',
-        },
-        {
-          title: 'this is a second title',
-          blogHTML: 'this is a blog post title!',
-          blogCoverPhoto: 'designed-for-everyone',
-        },
-      ],
     };
   },
   computed: {
-    sampleBlogCards() {
-      return blogStore().sampleBlogCards;
+    sampleBlogPosts() {
+      return blogStore().sampleBlogPosts;
+    },
+    blogCardFeeds() {
+      return blogStore().blogCardFeeds;
     },
     user(){
-      return blogStore().user;
+      return blogStore.user;
     }
   },
 };

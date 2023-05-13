@@ -3,9 +3,9 @@
     <div class="blog-content">
       <div>
         <h2 v-if="post.heroSection">{{ post.title }}</h2>
-        <h2 v-else>{{ post.title }}</h2>
+        <h2 v-else>{{ post.blogTitle }}</h2>
         <p v-if="post.heroSection">{{ post.blogPost }}</p>
-        <p v-else>{{ post.blogHTML }}</p>
+        <p v-else v-html="post.blogHtml"></p>
 
         <router-link class="link link-light" v-if="post.heroSection" to="#">
           Giriş/Kayıt Ol
@@ -19,7 +19,7 @@
     </div>
     <div class="blog-photo">
       <img v-if="post.heroSection" :src="getImageUrl(post.photo)" alt="" />
-      <img v-else :src="getImageUrl(post.blogCoverPhoto)" alt="" />
+      <img v-else :src="getImageUrlPosts(post.blogCoverPhotoURL)" alt="" />
     </div>
   </div>
 </template>
@@ -35,7 +35,10 @@ export default {
   },
   methods: {
     getImageUrl: (name) => {
-      return new URL(`../assets/blogPhotos/${name}.jpg`, import.meta.url).href;
+      return new URL(`../assets/blogPhotos/${name}`, import.meta.url).href;
+    },
+    getImageUrlPosts: (name) => {
+      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
     },
   },
   computed: {

@@ -9,10 +9,10 @@
       </div>
     </div>
 
-    <img :src="getImageUrl(post.blogCoverPhoto)" alt="" />
+    <img :src="getImageUrl(post.blogCoverPhotoURL)" alt="" />
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
-      <h6>Gönderi Tarihi: {{ post.blogDate }}</h6>
+      <h6>Gönderi Tarihi: {{ new Date(post.createdDate).toLocaleDateString('tr-TR', {dateStyle: long}) }}</h6>
       <router-link class="link" to="#">Görüntüle <ArrowIcon class="arrow" /></router-link>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getImageUrl: (name) => {
-      return new URL(`../assets/blogCards/${name}.jpg`, import.meta.url).href;
+      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
     },
   },
   computed: {

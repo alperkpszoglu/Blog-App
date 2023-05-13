@@ -4,12 +4,6 @@ import axios from 'axios';
 export const blogStore = defineStore('blogStore', {
   state: () => {
     return {
-      sampleBlogCards: [
-        { blogTitle: 'Blog Card 1', blogCoverPhoto: 'stock-1', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 2', blogCoverPhoto: 'stock-2', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 3', blogCoverPhoto: 'stock-3', blogDate: 'May 1, 2021' },
-        { blogTitle: 'Blog Card 4', blogCoverPhoto: 'stock-4', blogDate: 'May 1, 2021' },
-      ],
       blogs: [],
       isEditable: null,
       user: null,
@@ -30,10 +24,18 @@ export const blogStore = defineStore('blogStore', {
       blogPhotoPreview: null,
     };
   },
+  getters: {
+    sampleBlogPosts() {
+      return this.blogs.slice(0, 2);
+    },
+    blogCardFeeds() {
+      return this.blogs.slice(2, 6);
+    },
+  },
   actions: {
-    getAllBlogs(){
-      axios.get('https://localhost:7139/api/Blog/GetAllBlogs').then(res => {
-      console.log(res);
+    getAllBlogs() {
+      axios.get('https://localhost:7139/api/Blog/GetAllBlogs').then((res) => {
+        this.blogs = res.data;
       });
     },
     isEditableAction(payload) {
@@ -86,6 +88,6 @@ export const blogStore = defineStore('blogStore', {
     },
     updateBlogTitle(payload) {
       this.blogTitle = payload;
-    }
+    },
   },
 });

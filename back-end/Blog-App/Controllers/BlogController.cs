@@ -23,7 +23,23 @@ namespace Blog_App.Controllers
         [HttpGet("GetAllBlogs")]
         public IActionResult GetAllBlogs()
         {
-            var blogs = context.Blogs.Include(x => x.User).OrderByDescending(x => x.CreatedDate).ToList();
+            var blogs = context.Blogs.Include(x => x.User).Select(x =>
+            new
+            {
+                Id = x.Id,
+                BlogTitle = x.BlogTitle,
+                BlogCoverPhotoURL = x.BlogCoverPhotoURL,
+                BlogHtml = x.BlogHtml,
+                UserId = x.UserId,
+                CreatedDate = x.CreatedDate,
+                User = new
+                {
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    IsAdmin = x.User.IsAdmin,
+                    UserName = x.User.UserName
+                }
+            }).OrderByDescending(x => x.CreatedDate).ToList();
 
             return Ok(blogs);
         }
@@ -31,7 +47,7 @@ namespace Blog_App.Controllers
         [HttpPost("UploadBlog"), Authorize(Roles = "Admin")]
         public IActionResult UploadBlog(Blog blog)
         {
-            
+
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = context.Users.FirstOrDefault(u => u.Email == email);
 
