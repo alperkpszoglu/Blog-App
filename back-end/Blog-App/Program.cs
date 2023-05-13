@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Blog_App
 {
@@ -15,6 +16,11 @@ namespace Blog_App
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            // ignore circular references
+            builder.Services.AddControllersWithViews()
+            .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -62,6 +68,7 @@ namespace Blog_App
             app.UseAuthorization();
 
             app.MapControllers();
+
 
             app.UseCors(builder => builder
             .AllowAnyHeader()
