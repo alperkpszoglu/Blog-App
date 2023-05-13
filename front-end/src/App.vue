@@ -26,7 +26,7 @@ export default {
   },
   created() {
     blogStore().getCurrenctUser();
-
+    blogStore().getAllBlogs();
     this.checkedNavbar();
   },
   methods: {

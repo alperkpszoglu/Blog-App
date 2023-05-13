@@ -32,8 +32,8 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import BlogCoverPreview from '../components/BlogCoverPreview.vue';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import ImageUploader from 'quill-image-uploader';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'CreatePost',
@@ -87,21 +87,29 @@ export default {
     },
     uploadBlog() {
       const headers = blogStore().getToken();
-
       headers['Content-Type'] = 'multipart/form-data';
-      if (blogStore().blogHTML.length && blogStore().blogTitle.length) {
+      if (this.blogHTML.length && this.blogTitle.length) {
         const formData = new FormData();
         formData.append('file', this.$refs.blogPhoto.files[0]);
-        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers }).then((res) => {
-          console.log(res);
+        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
+
+        headers['Content-Type'] = 'application/json';
+        axios.post(
+          'https://localhost:7139/api/Blog/UploadBlog',
+          { blogHtml: this.blogHTML, blogCoverPhotoURL: this.file.name, blogTitle: this.blogTitle },
+          { headers: headers }
+        ).then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Başarılı!',
+            text: 'Basariyla post yuklediniz!',
+          });
         });
 
-
-        
         return;
       }
       this.error = true;
-      this.errorMsg = 'Blog basligi ve blog dolu olduguna emin olunuz!';
+      this.errorMsg = ' Blog basligi ve blog dolu olduguna emin olunuz!';
       setTimeout(() => {
         this.error = false;
       }, 5000);

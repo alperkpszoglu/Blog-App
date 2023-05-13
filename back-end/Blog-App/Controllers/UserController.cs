@@ -30,12 +30,12 @@ namespace Blog_App.Controllers
         }
 
         [HttpGet("GetCurrentUser"), Authorize]
-        public IActionResult GetCurrentUser()
+        public UserDto GetCurrentUser()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = context.Users.FirstOrDefault(u => u.Email == email);
             currentUser = mapper.Map<UserDto>(user);
-            return Ok(currentUser);
+            return currentUser;
         }
 
         [HttpPost("UpdateUser"), Authorize]

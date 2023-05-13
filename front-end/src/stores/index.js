@@ -10,6 +10,7 @@ export const blogStore = defineStore('blogStore', {
         { blogTitle: 'Blog Card 3', blogCoverPhoto: 'stock-3', blogDate: 'May 1, 2021' },
         { blogTitle: 'Blog Card 4', blogCoverPhoto: 'stock-4', blogDate: 'May 1, 2021' },
       ],
+      blogs: [],
       isEditable: null,
       user: null,
       profileEmail: null,
@@ -23,13 +24,18 @@ export const blogStore = defineStore('blogStore', {
 
       // create post
       blogHTML: 'Blog basligini buraya yaz',
-      blogTitle: null,
+      blogTitle: '',
       blogPhotoName: null,
       blogPhotoFileURL: null,
       blogPhotoPreview: null,
     };
   },
   actions: {
+    getAllBlogs(){
+      axios.get('https://localhost:7139/api/Blog/GetAllBlogs').then(res => {
+      console.log(res);
+      });
+    },
     isEditableAction(payload) {
       this.isEditable = payload;
     },

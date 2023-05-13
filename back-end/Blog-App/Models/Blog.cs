@@ -1,13 +1,17 @@
-﻿namespace Blog_App.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Blog_App.Models
 {
     public class Blog
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+        public string BlogTitle { get; set; }
         public string BlogHtml { get; set;}
-        public string BlogCoverPhoto { get; set; }
-        public DateTime Date { get; set;}
+        public string BlogCoverPhotoURL { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public User User { get; set;}
-        public Guid UserId { get; set; }
+        public User? User { get; set;}
+        public Guid? UserId { get; set; }
     }
 }
