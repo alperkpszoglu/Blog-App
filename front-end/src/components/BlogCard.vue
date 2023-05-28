@@ -9,11 +9,13 @@
       </div>
     </div>
 
-    <img :src="getImageUrl(post.blogCoverPhotoURL)" alt="" />
+    <img :src="getImageUrl(post.blogCoverPhotoURL)" />
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
-      <h6>Gönderi Tarihi: {{ new Date(post.createdDate).toLocaleDateString('tr-TR', {dateStyle: long}) }}</h6>
-      <router-link class="link" to="#">Görüntüle <ArrowIcon class="arrow" /></router-link>
+      <h6>Gönderi Tarihi: {{ new Date(post.createdDate).toLocaleDateString('tr-TR', { dateStyle: long }) }}</h6>
+      <router-link class="link" :to="{ name: 'ViewBlog', params: { blogid: post.id } }"
+        >Görüntüle<ArrowIcon class="arrow"
+      /></router-link>
     </div>
   </div>
 </template>
@@ -38,8 +40,8 @@ export default {
   computed: {
     isEditable() {
       return blogStore().isEditable;
-    }
-  }
+    },
+  },
 };
 </script>
 

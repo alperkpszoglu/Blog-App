@@ -99,6 +99,7 @@ export default {
           { blogHtml: this.blogHTML, blogCoverPhotoURL: this.file.name, blogTitle: this.blogTitle },
           { headers: headers }
         ).then(() => {
+          blogStore().getAllBlogs();
           Swal.fire({
             icon: 'success',
             title: 'Başarılı!',

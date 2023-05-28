@@ -11,7 +11,7 @@
           Giriş/Kayıt Ol
           <ArrowIcon class="arrow arrow-light" />
         </router-link>
-        <router-link class="link" v-else to="#">
+        <router-link class="link" v-else :to="{name: 'ViewBlog', params: {blogid: post.id}}">
           Blog görüntüle
           <ArrowIcon class="arrow" />
         </router-link>

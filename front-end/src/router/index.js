@@ -85,7 +85,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/view-blog',
+      path: '/view-blog/:blogid',
       name: 'ViewBlog',
       component: ViewBlogView,
       meta: {

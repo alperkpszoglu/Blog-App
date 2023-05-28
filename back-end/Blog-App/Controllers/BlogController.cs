@@ -28,7 +28,7 @@ namespace Blog_App.Controllers
             {
                 Id = x.Id,
                 BlogTitle = x.BlogTitle,
-                BlogCoverPhotoURL = x.BlogCoverPhotoURL,
+                BlogCoverPhotoURL =  x.BlogCoverPhotoURL,
                 BlogHtml = x.BlogHtml,
                 UserId = x.UserId,
                 CreatedDate = x.CreatedDate,

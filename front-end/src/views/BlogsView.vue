@@ -5,7 +5,7 @@
         <span>Blog Düzenleme</span>
         <input type="checkbox" v-model="isEditable" />
       </div>
-      <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+      <BlogCard :post="post" v-for="(post, index) in blogPosts" :key="index" />
     </div>
   </div>
 </template>
@@ -18,8 +18,8 @@ export default {
     BlogCard,
   },
   computed: {
-    sampleBlogCards() {
-      return blogStore().sampleBlogCards;
+    blogPosts() {
+      return blogStore().blogs;
     },
     isEditable: {
       get() {

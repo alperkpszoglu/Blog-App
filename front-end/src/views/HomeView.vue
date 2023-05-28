@@ -50,7 +50,7 @@ export default {
       return blogStore().blogCardFeeds;
     },
     user(){
-      return blogStore.user;
+      return blogStore().user;
     }
   },
 };
