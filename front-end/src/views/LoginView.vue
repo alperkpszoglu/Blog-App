@@ -66,6 +66,7 @@ export default {
           this.$router.push({ name: 'Home' });
           this.error.isTrue = false;
           this.error.msg = '';
+          blogStore().getAllBlogs();
         })
         .catch((error) => {
           this.error.isTrue = true;

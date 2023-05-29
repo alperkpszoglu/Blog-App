@@ -88,7 +88,7 @@ export default {
     uploadBlog() {
       const headers = blogStore().getToken();
       headers['Content-Type'] = 'multipart/form-data';
-      if (this.blogHTML.length && this.blogTitle.length) {
+      if (this.file && this.blogTitle.length) {
         const formData = new FormData();
         formData.append('file', this.$refs.blogPhoto.files[0]);
         axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
@@ -110,7 +110,7 @@ export default {
         return;
       }
       this.error = true;
-      this.errorMsg = ' Blog basligi ve blog dolu olduguna emin olunuz!';
+      this.errorMsg = ' Blog basligi ve blog fotografi olduguna emin olunuz!';
       setTimeout(() => {
         this.error = false;
       }, 5000);
