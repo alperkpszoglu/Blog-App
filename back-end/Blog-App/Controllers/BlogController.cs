@@ -61,5 +61,18 @@ namespace Blog_App.Controllers
             return Ok();
         }
 
+        [HttpGet("RemoveBlog")]
+        public IActionResult RemoveBlog(string blogId)
+        {
+
+            var blog = context.Blogs.Where(x => x.Id == Guid.Parse(blogId)).FirstOrDefault();
+
+            context.Entry(blog).State = EntityState.Deleted;
+            context.SaveChanges();
+
+            return Ok();
+        }
+
+
     }
 }

@@ -4,7 +4,7 @@
       <div class="icon">
         <EditIcon class="edit" />
       </div>
-      <div class="icon">
+      <div class="icon" @click="deleteBlog">
         <DeleteIcon class="delete" />
       </div>
     </div>
@@ -35,6 +35,11 @@ export default {
   methods: {
     getImageUrl: (name) => {
       return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
+    },
+    deleteBlog() {
+      if (confirm('Blogu silmek istiyor musunuz?')) {
+        blogStore().RemoveBlog(this.post.id);
+      }
     },
   },
   computed: {

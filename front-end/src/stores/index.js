@@ -79,7 +79,7 @@ export const blogStore = defineStore('blogStore', {
           },
           { headers: headers }
         )
-        .then((res) => {
+        .then(() => {
           this.profileInitials = this.profileFirstName[0] + this.profileLastName[0];
         });
     },
@@ -88,6 +88,13 @@ export const blogStore = defineStore('blogStore', {
     },
     updateBlogTitle(payload) {
       this.blogTitle = payload;
+    },
+    RemoveBlog(payload) {
+      const headers = this.getToken();
+
+      axios.get(`https://localhost:7139/api/Blog/RemoveBlog?blogId=${payload}`, { headers: headers }).then(() => {
+        this.getAllBlogs();
+      });
     },
   },
 });
