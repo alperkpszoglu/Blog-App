@@ -90,11 +90,21 @@ export const blogStore = defineStore('blogStore', {
       this.blogTitle = payload;
     },
     RemoveBlog(payload) {
+      // for delete the blog
       const headers = this.getToken();
 
       axios.get(`https://localhost:7139/api/Blog/RemoveBlog?blogId=${payload}`, { headers: headers }).then(() => {
         this.getAllBlogs();
       });
+    },
+    setBlogState(payload) {
+      // for edit the blog
+      this.blogTitle = payload.blogTitle;
+      this.blogHTML = payload.blogHTML;
+      this.blogPhotoName = payload.blogPhotoName;
+      this.blogPhotoFileURL = payload.blogPhotoFileURL;
+      console.log(`blog html is ${this.blogHTML}`);
+      console.log(`blog html is ${this.blogTitle}`);
     },
   },
 });

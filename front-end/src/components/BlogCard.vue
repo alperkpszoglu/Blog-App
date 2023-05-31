@@ -1,7 +1,7 @@
 <template>
   <div class="blog-card">
     <div class="icons" v-show="isEditable">
-      <div class="icon">
+      <div class="icon" @click="editBlog">
         <EditIcon class="edit" />
       </div>
       <div class="icon" @click="deleteBlog">
@@ -37,9 +37,10 @@ export default {
       return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
     },
     deleteBlog() {
-      if (confirm('Blogu silmek istiyor musunuz?')) {
-        blogStore().RemoveBlog(this.post.id);
-      }
+      if (confirm('Blogu silmek istiyor musunuz?')) blogStore().RemoveBlog(this.post.id);
+    },
+    editBlog() {
+      this.$router.push({ name: 'EditBlog', params: { blogid: this.post.id } });
     },
   },
   computed: {

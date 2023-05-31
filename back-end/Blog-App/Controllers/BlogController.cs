@@ -28,7 +28,7 @@ namespace Blog_App.Controllers
             {
                 Id = x.Id,
                 BlogTitle = x.BlogTitle,
-                BlogCoverPhotoURL =  x.BlogCoverPhotoURL,
+                BlogCoverPhotoURL = x.BlogCoverPhotoURL,
                 BlogHtml = x.BlogHtml,
                 UserId = x.UserId,
                 CreatedDate = x.CreatedDate,
@@ -61,13 +61,25 @@ namespace Blog_App.Controllers
             return Ok();
         }
 
-        [HttpGet("RemoveBlog")]
+        [HttpGet("RemoveBlog"), Authorize(Roles = "Admin")]
         public IActionResult RemoveBlog(string blogId)
         {
 
             var blog = context.Blogs.Where(x => x.Id == Guid.Parse(blogId)).FirstOrDefault();
 
             context.Entry(blog).State = EntityState.Deleted;
+            context.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpGet("UpdateBlog")]
+        public IActionResult UpdateBlog(string blogId, string blogHtml, string blogTitle)
+        {
+            var blog = context.Blogs.Where(x => x.Id == Guid.Parse(blogId)).FirstOrDefault();
+            blog.BlogTitle = blogTitle;
+            blog.BlogHtml = blogHtml;
+            context.Update(blog);
             context.SaveChanges();
 
             return Ok();

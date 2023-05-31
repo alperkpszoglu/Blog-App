@@ -9,6 +9,7 @@ import ProfileView from '../views/ProfileView.vue';
 import CreatePostView from '../views/CreatePostView.vue';
 import BlogPreview from '../views/BlogPreview.vue';
 import ViewBlogView from '../views/ViewBlogView.vue';
+import EditBlogView from '../views/EditBlogView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -90,6 +91,14 @@ const router = createRouter({
       component: ViewBlogView,
       meta: {
         title: 'Blog Görüntüle',
+      },
+    },
+    {
+      path: '/edit-blog/:blogid',
+      name: 'EditBlog',
+      component: EditBlogView,
+      meta: {
+        title: 'Blog Düzenle',
       },
     },
   ],
