@@ -62,7 +62,7 @@ export default {
         .then((res) => {
           localStorage.setItem('token', res.data);
         }).then(()=>{
-          blogStore().getCurrenctUser();
+          blogStore().getCurrentUser();
           this.$router.push({ name: 'Home' });
           this.error.isTrue = false;
           this.error.msg = '';

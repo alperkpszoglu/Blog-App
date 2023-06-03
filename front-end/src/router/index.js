@@ -19,6 +19,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: 'Ana Sayfa',
+        requiresAuth: false,
       },
     },
     {
@@ -27,6 +28,7 @@ const router = createRouter({
       component: BlogsView,
       meta: {
         title: 'Bloglar',
+        requiresAuth: false,
       },
     },
     {
@@ -35,6 +37,7 @@ const router = createRouter({
       component: LoginView,
       meta: {
         title: 'Giriş Yap',
+        requiresAuth: false,
       },
     },
     {
@@ -43,6 +46,7 @@ const router = createRouter({
       component: RegisterView,
       meta: {
         title: 'Kayıt Ol',
+        requiresAuth: false,
       },
     },
     {
@@ -51,6 +55,7 @@ const router = createRouter({
       component: ForgotPassword,
       meta: {
         title: 'Şifreni Değiştir',
+        requiresAuth: false,
       },
     },
     {
@@ -59,6 +64,7 @@ const router = createRouter({
       component: CreatePostView,
       meta: {
         title: 'Blog Oluştur',
+        requiresAuth: true,
       },
     },
     {
@@ -67,6 +73,7 @@ const router = createRouter({
       component: ProfileView,
       meta: {
         title: 'Profil',
+        requiresAuth: true,
       },
     },
     {
@@ -75,6 +82,8 @@ const router = createRouter({
       component: AdminView,
       meta: {
         title: 'Admin',
+        requiresAuth: true,
+        requiresAdmin: true,
       },
     },
     {
@@ -83,6 +92,8 @@ const router = createRouter({
       component: BlogPreview,
       meta: {
         title: 'Blog Önizleme',
+        requiresAuth: true,
+        requiresAdmin: true,
       },
     },
     {
@@ -91,6 +102,7 @@ const router = createRouter({
       component: ViewBlogView,
       meta: {
         title: 'Blog Görüntüle',
+        requiresAuth: false,
       },
     },
     {
@@ -99,9 +111,12 @@ const router = createRouter({
       component: EditBlogView,
       meta: {
         title: 'Blog Düzenle',
+        requiresAuth: true,
+        requiresAdmin: true,
       },
     },
   ],
 });
+
 
 export default router;

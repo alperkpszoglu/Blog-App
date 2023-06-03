@@ -73,12 +73,13 @@ namespace Blog_App.Controllers
             return Ok();
         }
 
-        [HttpGet("UpdateBlog")]
-        public IActionResult UpdateBlog(string blogId, string blogHtml, string blogTitle)
+        [HttpGet("UpdateBlog"), Authorize(Roles = "Admin")]
+        public IActionResult UpdateBlog(string blogId, string blogHtml, string blogTitle, string blogCoverPhotoURL)
         {
             var blog = context.Blogs.Where(x => x.Id == Guid.Parse(blogId)).FirstOrDefault();
             blog.BlogTitle = blogTitle;
             blog.BlogHtml = blogHtml;
+            blog.BlogCoverPhotoURL = blogCoverPhotoURL;
             context.Update(blog);
             context.SaveChanges();
 

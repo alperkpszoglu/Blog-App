@@ -55,7 +55,7 @@ export default {
     this.currentBlog = await blogStore().blogs.find((blog) => {
       return blog.id === this.routeId;
     });
-    blogStore().setBlogState(this.currentBlog);
+    blogStore().setBlogState(JSON.parse(JSON.stringify(this.currentBlog)));
   },
   computed: {
     blogStore() {
@@ -95,29 +95,34 @@ export default {
       blogStore().blogPhotoPreview = !blogStore().blogPhotoPreview;
     },
     async updateBlog() {
-      // if (this.file) { // if there is a file then change the cover photo
-        //   headers['Content-Type'] = 'multipart/form-data';
-        
-      //   const formData = new FormData();
-      //   formData.append('file', this.$refs.blogPhoto.files[0]);
-      //   axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
-      // }
-      // headers['Content-Type'] = 'application/json';
-      
       const headers = blogStore().getToken();
-      axios
-        .get(
-          `https://localhost:7139/api/Blog/UpdateBlog?blogId=${this.routeId}&blogHtml=${this.blogHTML}&blogTitle=${this.blogTitle}`,
-          { headers: headers }
-        )
-        .then(() => {
-          blogStore().getAllBlogs();
-          Swal.fire({
-            icon: 'success',
-            title: 'Başarılı!',
-            text: 'Basariyla postu guncellediniz!',
+
+      if (this.file) {
+        console.log(this.file);
+        // if there is a file then change the cover photo
+        headers['Content-Type'] = 'multipart/form-data';
+
+        const formData = new FormData();
+        formData.append('file', this.$refs.blogPhoto.files[0]);
+        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
+        headers['Content-Type'] = 'application/json';
+
+        axios
+          .get(
+            `https://localhost:7139/api/Blog/UpdateBlog?blogId=${this.routeId}&blogHtml=${this.blogHTML}&blogTitle=${this.blogTitle}&blogCoverPhotoURL=${this.file.name}`,
+            { headers: headers }
+          )
+          .then(() => {
+            blogStore().getAllBlogs();
+            Swal.fire({
+              icon: 'success',
+              title: 'Başarılı!',
+              text: 'Basariyla postu guncellediniz!',
+            });
+
+            this.$route.push({ name: 'ViewBlog' });
           });
-        });
+      }
     },
   },
 };

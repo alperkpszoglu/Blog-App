@@ -48,9 +48,9 @@ export const blogStore = defineStore('blogStore', {
         Authorization: `Bearer ${token}`,
       };
     },
-    getCurrenctUser() {
+    async getCurrentUser() {
       const headers = this.getToken();
-      axios
+      await axios
         .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
           this.profileEmail = res.data.email;
@@ -99,12 +99,11 @@ export const blogStore = defineStore('blogStore', {
     },
     setBlogState(payload) {
       // for edit the blog
+      console.log(payload);
       this.blogTitle = payload.blogTitle;
       this.blogHTML = payload.blogHTML;
       this.blogPhotoName = payload.blogPhotoName;
       this.blogPhotoFileURL = payload.blogPhotoFileURL;
-      console.log(`blog html is ${this.blogHTML}`);
-      console.log(`blog html is ${this.blogTitle}`);
     },
   },
 });

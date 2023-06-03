@@ -7,7 +7,7 @@ namespace Blog_App.Controllers
     [Route("api/[controller]")]
     public class UploadFileController : Controller
     {
-        [HttpPost("UploadImage"), Authorize(Roles = "Admin,User")]
+        [HttpPost("UploadImage"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file == null || file.Length == 0)
