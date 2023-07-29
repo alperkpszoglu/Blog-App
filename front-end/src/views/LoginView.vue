@@ -56,9 +56,8 @@ export default {
       //     this.error.msg = '';
       //   }
       // )
-
       axios
-        .post('https://localhost:7139/api/Auth/login', { email: this.email, password: this.password })
+        .post(import.meta.env.VITE_BASE_URL + '/api/Auth/login', { email: this.email, password: this.password })
         .then((res) => {
           localStorage.setItem('token', res.data);
         }).then(()=>{

@@ -34,7 +34,7 @@ export default {
     addAdmin() {
       const headers = blogStore().getToken();
       axios
-        .get(`https://localhost:7139/api/User/SetAdminRole?email=${this.adminEmail}`, { headers: headers })
+        .get(import.meta.env.VITE_BASE_URL + `/User/SetAdminRole?email=${this.adminEmail}`, { headers: headers })
         .then(() => {
           Swal.fire({
             icon: 'success',

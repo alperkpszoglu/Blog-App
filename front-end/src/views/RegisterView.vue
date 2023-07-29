@@ -75,7 +75,7 @@ export default {
           this.error.isTrue = false;
           this.error.msg = '';
 
-          await axios.post('https://localhost:7139/api/Auth/register', {
+          await axios.post(import.meta.env.VITE_BASE_URL + '/api/Auth/register', {
             firstName: this.firstname,
             lastName: this.lastname,
             userName: this.username,
@@ -110,6 +110,7 @@ export default {
   align-self: center;
   margin: 0 auto;
   width: 90%;
+
   @media (min-width: 900px) {
     width: 100%;
   }
@@ -140,6 +141,7 @@ export default {
       font-size: 2rem;
       color: #303030;
       margin-bottom: 2.25rem;
+
       @media (min-width: 900px) {
         font-size: 2.25rem;
       }
@@ -155,6 +157,7 @@ export default {
         justify-content: center;
         align-items: center;
         margin-bottom: 0.5rem;
+
         input {
           width: 100%;
           border: none;
@@ -183,6 +186,7 @@ export default {
       width: 60px;
       right: -30px;
       height: 101%;
+
       @media (min-width: 900px) {
         display: initial;
       }
@@ -196,9 +200,9 @@ export default {
     background-image: url('../assets/background.png');
     width: 100%;
     height: 100%;
+
     @media (min-width: 900px) {
       display: initial;
     }
   }
-}
-</style>
+}</style>

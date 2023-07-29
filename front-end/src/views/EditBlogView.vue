@@ -98,18 +98,17 @@ export default {
       const headers = blogStore().getToken();
 
       if (this.file) {
-        console.log(this.file);
         // if there is a file then change the cover photo
         headers['Content-Type'] = 'multipart/form-data';
 
         const formData = new FormData();
         formData.append('file', this.$refs.blogPhoto.files[0]);
-        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
+        axios.post(import.meta.env.VITE_BASE_URL + '/api/File/UploadImage', formData, { headers: headers });
         headers['Content-Type'] = 'application/json';
 
         axios
           .get(
-            `https://localhost:7139/api/Blog/UpdateBlog?blogId=${this.routeId}&blogHtml=${this.blogHTML}&blogTitle=${this.blogTitle}&blogCoverPhotoURL=${this.file.name}`,
+            import.meta.env.VITE_BASE_URL + `/api/Blog/UpdateBlog?blogId=${this.routeId}&blogHtml=${this.blogHTML}&blogTitle=${this.blogTitle}&blogCoverPhotoURL=${this.file.name}`,
             { headers: headers }
           )
           .then(() => {

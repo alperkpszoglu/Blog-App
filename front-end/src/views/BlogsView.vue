@@ -1,7 +1,7 @@
 <template>
   <div class="blog-card-wrapper">
     <div class="blog-cards container">
-      <div class="toggle-edit">
+      <div class="toggle-edit" v-if="blogStore.profileIsAdmin">
         <span>Blog Düzenleme</span>
         <input type="checkbox" v-model="isEditable" />
       </div>
@@ -28,6 +28,9 @@ export default {
       set(payload) {
         blogStore().isEditableAction(payload);
       },
+    },
+    blogStore() {
+      return blogStore();
     },
   },
   unmounted() {

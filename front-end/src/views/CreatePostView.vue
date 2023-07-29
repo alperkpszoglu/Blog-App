@@ -91,11 +91,11 @@ export default {
       if (this.file && this.blogTitle.length) {
         const formData = new FormData();
         formData.append('file', this.$refs.blogPhoto.files[0]);
-        axios.post('https://localhost:7139/api/UploadFile/UploadImage', formData, { headers: headers });
+        axios.post(import.meta.env.VITE_BASE_URL + '/api/File/UploadImage', formData, { headers: headers });
 
         headers['Content-Type'] = 'application/json';
         axios.post(
-          'https://localhost:7139/api/Blog/UploadBlog',
+          import.meta.env.VITE_BASE_URL + '/api/Blog/UploadBlog',
           { blogHtml: this.blogHTML, blogCoverPhotoURL: this.file.name, blogTitle: this.blogTitle },
           { headers: headers }
         ).then(() => {

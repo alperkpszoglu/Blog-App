@@ -52,7 +52,17 @@ namespace Blog_App
             });
 
 
-            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer("Data Source=ALPER\\SQLEXPRESS;Initial Catalog=BlogDb;Integrated Security=True;Encrypt=False;Connection Timeout=120;"));
+
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            //{
+            //    builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BlogAppContextProd")));
+            //}
+            //else
+             
+            builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BlogAppContext")));
+
+            // Automatically perform database migration
+            //builder.Services.BuildServiceProvider().GetService<BlogDbContext>().Database.Migrate();
 
             var app = builder.Build();
 
