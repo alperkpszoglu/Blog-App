@@ -5,9 +5,9 @@
         <h2 v-if="post.heroSection">{{ post.title }}</h2>
         <h2 v-else>{{ post.blogTitle }}</h2>
         <p v-if="post.heroSection">{{ post.blogPost }}</p>
-        <p v-else v-html="post.blogHtml"></p>
+        <p class="text-wrapper" v-else v-html="post.blogHtml"></p>
 
-        <router-link class="link link-light" v-if="post.heroSection" to="#">
+        <router-link class="link link-light" v-if="post.heroSection" :to="{name: 'Register'}">
           Giriş/Kayıt Ol
           <ArrowIcon class="arrow arrow-light" />
         </router-link>
@@ -38,7 +38,7 @@ export default {
       return new URL(`../assets/blogPhotos/${name}`, import.meta.url).href;
     },
     getImageUrlPosts: (name) => {
-      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
+      return new URL(`../assets/blogCards/${name}`, import.meta.url).href;
     },
   },
   computed: {
@@ -150,4 +150,11 @@ export default {
     color: #fff;
   }
 }
+
+.text-wrapper {
+  width: 100%;
+  height: 5rem;
+  overflow: hidden;
+}
+
 </style>

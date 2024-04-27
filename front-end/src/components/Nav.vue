@@ -12,7 +12,7 @@
           <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
         </ul>
 
-        <div v-show="blogStore.user" class="profile" ref="profile" @click="profileMenuToggle">
+        <div v-show="blogStore.user" v-if="!mobile" class="profile" ref="profile" @click="profileMenuToggle">
           <span>{{ blogStore.profileInitials }}</span>
           <div v-show="profileToggle" class="profile-menu">
             <div class="info">
@@ -52,6 +52,9 @@
         <router-link class="link" :to="{ name: 'Blogs' }">bloglar</router-link>
         <router-link v-if="blogStore.profileIsAdmin" class="link" :to="{ name: 'CreatePost' }">blog ekle</router-link>
         <router-link v-if="!blogStore.user" class="link" :to="{ name: 'Login' }">giriş yap/kayıt ol</router-link>
+        <router-link v-if="mobile && blogStore.user" class="link" :to="{ name: 'Profile' }">profil</router-link>
+        <router-link v-if="mobile && blogStore.profileIsAdmin" class="link" :to="{ name: 'Admin' }">admin</router-link>
+        <router-link v-if="blogStore.user" class="link" to="#" @click="signOut">çıkış yap</router-link>
       </ul>
     </transition>
   </header>
@@ -63,6 +66,7 @@ import UserIcon from '../assets/Icons/user-alt-light.svg';
 import AdminIcon from '../assets/Icons/user-crown-light.svg';
 import SignOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
 import { blogStore } from '../stores/index';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'nav',
@@ -110,6 +114,7 @@ export default {
     },
     signOut() {
       localStorage.removeItem('token');
+      this.$router.push({name: 'Home'});
       window.location.reload();
     },
   },

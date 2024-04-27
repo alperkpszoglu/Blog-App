@@ -6,7 +6,7 @@
         <p><span>Error:</span>{{ errorMsg }}</p>
       </div>
       <div class="blog-info">
-        <input type="text" placeholder="Blog Başlığı Giriniz" v-model="blogTitle" />
+        <input maxlength="50" type="text" placeholder="Blog Başlığı Giriniz" v-model="blogTitle" />
         <div class="upload-file">
           <label for="blog-photo">Kapak Fotoğrafı Yükle</label>
           <input type="file" ref="blogPhoto" @change="fileUpload" id="blog-photo" accept=".png, .jpg, .jpeg" />

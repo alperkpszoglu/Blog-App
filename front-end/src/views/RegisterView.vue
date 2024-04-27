@@ -8,19 +8,19 @@
       <h2>Kayıt Ol</h2>
       <div class="inputs">
         <div class="input">
-          <input type="text" v-model="firstname" placeholder="Ad" />
+          <input maxlength="20" type="text" v-model="firstname" placeholder="Ad" />
           <user class="icon" />
         </div>
         <div class="input">
-          <input type="email" v-model="lastname" placeholder="Soyad" />
+          <input maxlength="20" type="email" v-model="lastname" placeholder="Soyad" />
           <user class="icon" />
         </div>
         <div class="input">
-          <input type="email" v-model="email" placeholder="Email" />
+          <input maxlength="124" type="email" v-model="email" placeholder="Email" />
           <email class="icon" />
         </div>
         <div class="input">
-          <input type="email" v-model="username" placeholder="Kullanıcı Adı" />
+          <input maxlength="20" type="text" v-model="username" placeholder="Kullanıcı Adı" />
           <user class="icon" />
         </div>
         <div class="input">
@@ -65,6 +65,14 @@ export default {
   methods: {
     async register() {
       try {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@(hotmail|gmail)\.com$/; // regex for emails
+
+        if (!emailRegex.test(this.email)) {
+        this.error.isTrue = true;
+        this.error.msg = 'Lütfen Geçerli Email Giriniz!';
+        return;
+      }
+
         if (
           this.email !== '' &&
           this.lastname !== '' &&
@@ -89,10 +97,10 @@ export default {
         }
       } catch (err) {
         this.error.isTrue = true;
-        this.error.msg = 'Zaten Böyle Bir Mail Adresi Mevcuttur';
+        this.error.msg = 'Böyle Bir Mail Adresi veya Kullanıcı Adı Mevcuttur';
       }
     },
-  },
+  }
 };
 </script>
 <style lang="scss">

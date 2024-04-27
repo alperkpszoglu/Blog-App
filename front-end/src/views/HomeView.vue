@@ -13,8 +13,8 @@
 
     <div v-if="!user" class="updates">
       <div class="container">
-        <h2>never miss a post. Register for your free account today!</h2>
-        <router-link class="router-button" to="#"> Register for FireBlogs <ArrowIcon class="arrow arrow-light" /> </router-link>
+        <h2>ASLA BİR GÖNDERİYİ KAÇIRMAYIN. ŞİMDİ KAYDOL!</h2>
+        <router-link class="router-button" to="#"> hemen simdi kayit ol <ArrowIcon class="arrow arrow-light" /> </router-link>
       </div>
     </div>
   </div>
@@ -34,9 +34,9 @@ export default {
   data() {
     return {
       heroSection: {
-        title: 'Welcome',
+        title: 'Hello World!',
         blogPost:
-          'Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!',
+          'Merhaba! Benim adım Alper ve bu benim kişisel blogum. Bu blog sayfasında, teknoloji ve yazılım dünyasına dair merak ettiklerimi, deneyimlerimi ve düşüncelerimi sizlerle paylaşacağım.',
         heroSection: true,
         photo: 'coding.jpg',
       },

@@ -26,11 +26,10 @@ export default {
   async mounted() {
     const blog = await blogStore().blogs.find((blog) => blog.id === this.$route.params.blogid);
     Object.assign(this.currentBlog, blog);
-    console.log(this.currentBlog);
   },
   methods: {
     getImageUrlPosts: (name) => {
-      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
+      return new URL(`../assets/blogCards/${name}`, import.meta.url).href;
     },
   },
 };

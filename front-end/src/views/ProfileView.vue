@@ -11,15 +11,15 @@
         </div>
         <div class="input">
           <label for="firstName">Ad:</label>
-          <input type="text" id="firstName" v-model="blogStore.profileFirstName" />
+          <input maxlength="20" type="text" id="firstName" v-model="blogStore.profileFirstName" />
         </div>
         <div class="input">
           <label for="lastName">Soyad:</label>
-          <input type="text" id="lastName" v-model="blogStore.profileLastName" />
+          <input maxlength="20" type="text" id="lastName" v-model="blogStore.profileLastName" />
         </div>
         <div class="input">
           <label for="username">Kullanıcı Adı:</label>
-          <input type="text" id="username" v-model="blogStore.profileUserName" />
+          <input maxlength="20" type="text" id="username" v-model="blogStore.profileUserName" />
         </div>
         <div class="input">
           <label for="email">Email:</label>

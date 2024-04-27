@@ -24,6 +24,7 @@ import ArrowIcon from '../assets/Icons/arrow-right-light.svg';
 import EditIcon from '../assets/Icons/edit-regular.svg';
 import DeleteIcon from '../assets/Icons/trash-regular.svg';
 import { blogStore } from '../stores/index';
+
 export default {
   name: 'blogCard',
   props: ['post'],
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     getImageUrl: (name) => {
-      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
+      return new URL(`../assets/blogCards/${name}`, import.meta.url).href;
     },
     deleteBlog() {
       if (confirm('Blogu silmek istiyor musunuz?')) blogStore().RemoveBlog(this.post.id);

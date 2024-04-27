@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog_App.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20230702151155_InitialMig")]
-    partial class InitialMig
+    [Migration("20230730214024_db_first_mig")]
+    partial class db_first_mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,11 +88,14 @@ namespace Blog_App.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
                         .IsUnique();
 
                     b.ToTable("Users");

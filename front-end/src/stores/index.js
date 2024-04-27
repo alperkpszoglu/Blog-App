@@ -34,7 +34,7 @@ export const blogStore = defineStore('blogStore', {
   },
   actions: {
     getAllBlogs() {
-      axios.get('https://localhost:7139/api/Blog/GetAllBlogs').then((res) => {
+      axios.get(import.meta.env.VITE_BASE_URL + '/api/Blog/GetAllBlogs').then((res) => {
         this.blogs = res.data;
       });
     },
@@ -51,7 +51,7 @@ export const blogStore = defineStore('blogStore', {
     async getCurrentUser() {
       const headers = this.getToken();
       await axios
-        .get('https://localhost:7139/api/User/GetCurrentUser', { headers: headers })
+        .get(import.meta.env.VITE_BASE_URL + '/api/User/GetCurrentUser', { headers: headers })
         .then((res) => {
           this.profileEmail = res.data.email;
           this.profileUserName = res.data.userName;
@@ -70,7 +70,7 @@ export const blogStore = defineStore('blogStore', {
       const headers = this.getToken();
       axios
         .post(
-          'https://localhost:7139/api/User/UpdateUser',
+          import.meta.env.VITE_BASE_URL + '/api/User/UpdateUser',
           {
             FirstName: this.profileFirstName,
             LastName: this.profileLastName,
@@ -93,7 +93,7 @@ export const blogStore = defineStore('blogStore', {
       // for delete the blog
       const headers = this.getToken();
 
-      axios.get(`https://localhost:7139/api/Blog/RemoveBlog?blogId=${payload}`, { headers: headers }).then(() => {
+      axios.get(import.meta.env.VITE_BASE_URL +`/api/Blog/RemoveBlog?blogId=${payload}`, { headers: headers }).then(() => {
         this.getAllBlogs();
       });
     },

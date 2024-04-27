@@ -16,7 +16,11 @@ namespace Blog_App.Data
         {
             modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
-            .IsUnique();
+            .IsUnique(true);
+
+            modelBuilder.Entity<User>()
+            .HasIndex(u => u.UserName)
+            .IsUnique(true);
         }
 
     }
