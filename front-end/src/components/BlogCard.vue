@@ -31,11 +31,11 @@ export default {
   components: {
     ArrowIcon,
     DeleteIcon,
-    EditIcon,
+    EditIcon, 
   },
   methods: {
     getImageUrl: (name) => {
-      return new URL(`../assets/blogCards/${name}`, import.meta.url).href;
+      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
     },
     deleteBlog() {
       if (confirm('Blogu silmek istiyor musunuz?')) blogStore().RemoveBlog(this.post.id);

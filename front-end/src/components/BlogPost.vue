@@ -38,7 +38,7 @@ export default {
       return new URL(`../assets/blogPhotos/${name}`, import.meta.url).href;
     },
     getImageUrlPosts: (name) => {
-      return new URL(`../assets/blogCards/${name}`, import.meta.url).href;
+      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
     },
   },
   computed: {
@@ -59,6 +59,7 @@ export default {
     max-height: 650px;
     flex-direction: row;
   }
+
   .blog-content {
     display: flex;
     flex-direction: column;
