@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getImageUrlPosts: (name) => {
-      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
+      return new URL(import.meta.env.VITE_BASE_URL + `/Images/${name}`, import.meta.url).href;
     },
   },
 };

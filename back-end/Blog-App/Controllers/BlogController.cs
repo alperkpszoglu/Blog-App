@@ -57,7 +57,6 @@ namespace Blog_App.Controllers
 
             context.SaveChanges();
 
-
             return Ok();
         }
 

@@ -88,7 +88,7 @@ export default {
             lastName: this.lastname,
             userName: this.username,
             email: this.email,
-            passwordHash: this.password,
+            password: this.password,
           });
           this.$router.push({ name: 'Login' });
         } else {

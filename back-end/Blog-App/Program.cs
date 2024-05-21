@@ -1,6 +1,7 @@
 using Blog_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -25,7 +26,6 @@ namespace Blog_App
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
             builder.Services.AddSwaggerGen(options => // for input the bearer token in swagger UI
@@ -72,6 +72,13 @@ namespace Blog_App
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "../Blog-App/Images");
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(imagePath),
+                RequestPath = "/images"
+            });
 
             app.UseHttpsRedirection();
             app.UseAuthentication();

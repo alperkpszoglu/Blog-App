@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Blog_App.Data;
+﻿using Blog_App.Data;
 using Blog_App.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +12,10 @@ namespace Blog_App.Controllers
     public class UserController : Controller
     {
         private readonly BlogDbContext context;
-        private readonly IMapper mapper;
 
-        UserDto currentUser = new UserDto();
-
-        public UserController(BlogDbContext _context, IMapper mapper)
+        public UserController(BlogDbContext _context)
         {
             this.context = _context;
-            this.mapper = mapper;
         }
 
         [HttpGet("GetUsers"), Authorize(Roles = "Admin,User")]
@@ -34,7 +29,17 @@ namespace Blog_App.Controllers
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = context.Users.FirstOrDefault(u => u.Email == email);
-            currentUser = mapper.Map<UserDto>(user);
+
+            var currentUser = new UserDto
+            {
+                FirstName = user.FirstName,
+                UserName = user.UserName,
+                Email = user.Email,
+                LastName = user.LastName,
+                IsAdmin = user.IsAdmin,
+                CreatedDate = user.CreatedDate
+            };
+
             return currentUser;
         }
 

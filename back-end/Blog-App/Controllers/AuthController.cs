@@ -22,14 +22,17 @@ namespace Blog_App.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult<User> Register(User request)
+        public ActionResult<User> Register(UserRegisterRequest request)
         {
-            var user = new User();
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash);
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.UserName = request.UserName;
-            user.Email = request.Email;
+            var user = new User
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+            };
+
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             user.PasswordHash = passwordHash;
 
             _context.Users.Add(user);
@@ -58,14 +61,6 @@ namespace Blog_App.Controllers
             }
 
         }
-
-        //[HttpPost("logout")]
-        //public IActionResult Logout()
-        //{
-        //    // Delete the authentication cookie
-        //    HttpContext.Request.Headers.Remove("Authorization");
-        //    return Ok();
-        //}
 
         private string CreateToken(User user)
         {

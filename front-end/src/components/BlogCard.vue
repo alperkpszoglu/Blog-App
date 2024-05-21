@@ -34,9 +34,9 @@ export default {
     EditIcon, 
   },
   methods: {
-    getImageUrl: (name) => {
-      return new URL(`../../../back-end/Blog-App/Images/${name}`, import.meta.url).href;
-    },
+      getImageUrl: (name) => {
+        return new URL(import.meta.env.VITE_BASE_URL + `/Images/${name}`, import.meta.url).href;
+      },
     deleteBlog() {
       if (confirm('Blogu silmek istiyor musunuz?')) blogStore().RemoveBlog(this.post.id);
     },
